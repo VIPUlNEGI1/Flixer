@@ -3,19 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #1E3A8A; /* Updated primary color */
+  --secondary: #FBBF24; /* Updated secondary color */
+  --background: #F9FAFB;
+  --text: #1F2937;
+  --text-light: #6B7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .nav-item {
+    @apply relative px-5 py-2.5 text-[15px] font-medium transition-all duration-200 
+           rounded-full flex items-center gap-2;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  .nav-item-active {
+    @apply text-secondary bg-secondary/10;
+  }
+
+  .nav-item-inactive {
+    @apply text-white hover:text-secondary;
+  }
+
+  .submenu {
+    @apply absolute top-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 w-56 bg-white rounded-xl shadow-lg 
+           py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+           transition-all duration-200 border border-gray-100/50 backdrop-blur-sm;
+  }
+
+  .submenu-item {
+    @apply flex items-center w-full px-4 py-2.5 text-[14px] text-gray-600 
+           hover:text-primary hover:bg-gray-50/80 transition-all duration-200;
+  }
+
+  .mobile-nav-item {
+    @apply flex items-center w-full px-4 py-3 text-[15px] text-gray-700 
+           hover:text-primary hover:bg-gray-50/80 transition-all duration-200 
+           rounded-lg gap-3;
+  }
+
+  .mobile-submenu {
+    @apply pl-4 mt-1 space-y-1 ml-9 border-l-2 border-primary/10;
+  }
 }
