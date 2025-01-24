@@ -22,12 +22,12 @@ export const navigationConfig = {
     {
       id: 'services',
       label: 'Services',
-      href: '/ser',
+      href: '/',
       icon: Settings,
       subMenu: [
-        { id: 'cloud', label: 'Cloud Solutions', href: '/services/cloud', icon: Cloud },
+        { id: 'cloud', label: 'Cloud Solutions', href: '/cloud', icon: Cloud },
         { id: 'web', label: 'Web Development', href: '/webdev', icon: Globe },
-        { id: 'digital', label: 'Digital Strategy', href: '/services/digital', icon: Brain },
+        { id: 'digital', label: 'Digital Strategy', href: '/digital-strategy', icon: Brain },
         { id: 'cyber', label: 'Cybersecurity', href: '/services/security', icon: Shield },
         { id: 'mobile', label: 'Mobile Solutions', href: '/services/mobile', icon: Smartphone },
         { id: 'data', label: 'Data Analytics', href: '/services/analytics', icon: Database },
