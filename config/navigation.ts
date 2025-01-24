@@ -22,7 +22,7 @@ export const navigationConfig = {
     {
       id: 'services',
       label: 'Services',
-      href: '/',
+      href: '/ser',
       icon: Settings,
       subMenu: [
         { id: 'cloud', label: 'Cloud Solutions', href: '/services/cloud', icon: Cloud },

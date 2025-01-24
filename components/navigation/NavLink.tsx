@@ -1,31 +1,36 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
+  isActive?: boolean;
   hasSubmenu?: boolean;
+  onClick?: () => void;
 }
 
-export default function NavLink({ href, children, className, onClick, hasSubmenu }: NavLinkProps) {
+export default function NavLink({ href, children, isActive, hasSubmenu, onClick }: NavLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isCurrentPath = pathname === href;
 
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={clsx(
-        'nav-item',
-        isActive ? 'nav-item-active' : 'nav-item-inactive',
-        hasSubmenu && 'pr-6',
-        className
-      )}
+      className="relative px-4 py-2 text-gray-200 hover:text-white transition-all duration-200"
     >
-      {children}
+      <span className="relative z-10 flex items-center text-sm font-medium">
+        {children}
+      </span>
+      
+      {(isActive || isCurrentPath) && (
+        <motion.div
+          layoutId="navbar-active"
+          className="absolute inset-0 bg-blue-500/10 rounded-lg"
+          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+        />
+      )}
     </Link>
   );
 }

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown, ChevronUp } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
 import { navigationConfig } from '@/config/navigation';
 import NavLink from './NavLink';
@@ -47,19 +47,30 @@ export default function Navbar() {
                 onMouseEnter={() => handleMouseEnter(() => setActiveSubmenu(item.id))}
                 onMouseLeave={() => handleMouseLeave(() => setActiveSubmenu(null))}
               >
-                <NavLink
-                  href={item.href}
-                  hasSubmenu={!!item.subMenu}
-                  isActive={activeSubmenu === item.id}
-                >
-                  <span className="flex items-center gap-2">
-                    {item.icon && <item.icon className="w-4 h-4" />}
-                    <span>{item.label}</span>
-                  </span>
-                </NavLink>
+                <div className="flex items-center">
+                  <NavLink
+                    href={item.href}
+                    hasSubmenu={!!item.subMenu}
+                    isActive={activeSubmenu === item.id}
+                  >
+                    <span className="flex items-center gap-2">
+                      {item.icon && <item.icon className="w-4 h-4" />}
+                      <span>{item.label}</span>
+                      {item.subMenu && (
+                        <span className="ml-1">
+                          {activeSubmenu === item.id ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </span>
+                      )}
+                    </span>
+                  </NavLink>
+                </div>
                 <AnimatePresence>
                   {item.subMenu && activeSubmenu === item.id && (
-                    <SubMenu items={item.subMenu} />
+                    <SubMenu items={item.subMenu} isOpen={true} />
                   )}
                 </AnimatePresence>
               </div>

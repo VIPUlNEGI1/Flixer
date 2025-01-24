@@ -1,6 +1,8 @@
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { MenuItem } from '@/types/navigation';
+import { X, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { HiX } from 'react-icons/hi';
 import SubMenu from './SubMenu';
 
 interface MobileMenuProps {
@@ -10,38 +12,81 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) {
-  if (!isOpen) return null;
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
   return (
-    <div className="fixed inset-0 z-50 md:hidden">
-      <div className="fixed inset-0 bg-gray-900/20 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed right-0 top-0 bottom-0 w-[280px] bg-white">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
-          <button
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
             onClick={onClose}
-            className="p-2 rounded-lg text-gray-700 hover:text-primary 
-                     hover:bg-gray-50 active:bg-gray-100 transition-all duration-200"
+          />
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 20 }}
+            className="fixed right-0 top-0 bottom-0 w-[300px] bg-gray-900 z-50"
           >
-            <HiX className="h-6 w-6" />
-          </button>
-        </div>
-        <nav className="p-3 space-y-1">
-          {items.map((item) => (
-            <div key={item.id}>
-              <Link
-                href={item.href}
-                className="mobile-nav-item"
+            <div className="flex items-center justify-between p-4 border-b border-gray-800">
+              <h2 className="text-lg font-semibold text-white">Menu</h2>
+              <button
                 onClick={onClose}
+                className="p-2 rounded-lg hover:bg-gray-800 transition-colors"
               >
-                {item.icon && <item.icon className="w-5 h-5" />}
-                {item.label}
-              </Link>
-              {item.subMenu && <SubMenu items={item.subMenu} isMobile />}
+                <X className="w-5 h-5 text-gray-400" />
+              </button>
             </div>
-          ))}
-        </nav>
-      </div>
-    </div>
+            <nav className="p-4 space-y-2">
+              {items.map((item) => (
+                <div key={item.id}>
+                  {item.subMenu ? (
+                    <>
+                      <button
+                        onClick={() => setActiveSubmenu(
+                          activeSubmenu === item.id ? null : item.id
+                        )}
+                        className="flex items-center justify-between w-full p-3 
+                                 text-gray-300 rounded-xl hover:bg-gray-800"
+                      >
+                        <span className="flex items-center">
+                          {item.icon && <item.icon className="w-5 h-5 mr-3" />}
+                          {item.label}
+                        </span>
+                        <ChevronRight className={`w-5 h-5 transition-transform ${
+                          activeSubmenu === item.id ? 'rotate-90' : ''
+                        }`} />
+                      </button>
+                      {activeSubmenu === item.id && (
+                        <SubMenu
+                          items={item.subMenu}
+                          isMobile
+                          isOpen={true}
+                          onItemClick={onClose}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className="flex items-center w-full p-3 text-gray-300 
+                               rounded-xl hover:bg-gray-800"
+                    >
+                      {item.icon && <item.icon className="w-5 h-5 mr-3" />}
+                      {item.label}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
