@@ -28,11 +28,11 @@ export const navigationConfig = {
         { id: 'cloud', label: 'Cloud Solutions', href: '/cloud', icon: Cloud },
         { id: 'web', label: 'Web Development', href: '/webdev', icon: Globe },
         { id: 'digital', label: 'Digital Strategy', href: '/digital-strategy', icon: Brain },
-        { id: 'cyber', label: 'Cybersecurity', href: '/services/security', icon: Shield },
-        { id: 'mobile', label: 'Mobile Solutions', href: '/services/mobile', icon: Smartphone },
-        { id: 'data', label: 'Data Analytics', href: '/services/analytics', icon: Database },
-        { id: 'ai', label: 'AI Solutions', href: '/services/ai', icon: Bot },
-        { id: 'devops', label: 'DevOps Services', href: '/services/devops' , icon: Infinity }
+        { id: 'cyber', label: 'Cybersecurity', href: '/cybersecurity', icon: Shield },
+        { id: 'mobile', label: 'Mobile Solutions', href: '/mobile-solutions', icon: Smartphone },
+        { id: 'data', label: 'Data Analytics', href: '/data-analytics', icon: Database },
+        { id: 'ai', label: 'AI Solutions', href: '/ai-solutions', icon: Bot },
+        { id: 'devops', label: 'DevOps Services', href: '/devops' , icon: Infinity }
       ]
     },
     {
