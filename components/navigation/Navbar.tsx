@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-gray-900/95 backdrop-blur-sm shadow-xl' : 'bg-transparent'
+      isScrolled ? 'bg-gray-900' : 'bg-transparent'
     }`}>
       <nav className="max-w-7xl mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
@@ -34,7 +34,7 @@ export default function Navbar() {
                            to-indigo-600 flex items-center justify-center">
                 <span className="text-xl font-bold text-white">AS</span>
               </div>
-              <span className="text-xl font-bold text-white">Astern</span>
+              <span className="text-xl font-bold text-white">Astren Solutions</span>
             </Link>
           </div>
 
