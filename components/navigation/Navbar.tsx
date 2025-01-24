@@ -19,9 +19,9 @@ const navigationItems: NavigationItem[] = [
     name: 'Services',
     href: '/services',
     subItems: [
-      { name: 'Strategy Consulting', href: '/services/strategy', description: 'Transform your business with expert guidance' },
-      { name: 'Digital Transformation', href: '/services/digital', description: 'Embrace the future of technology' },
-      { name: 'Business Analytics', href: '/services/analytics', description: 'Data-driven decision making' }
+      { name: 'Cloud Solutions', href: '/services/strategy', description: 'Transform your business with expert guidance' },
+      { name: 'Web Development', href: '/webdev', description: 'Embrace the future of technology' },
+      { name: 'Digital Strategy', href: '/services/analytics', description: 'Data-driven decision making' }
     ]
   },
   {
