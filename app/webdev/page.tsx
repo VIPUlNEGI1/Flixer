@@ -3,6 +3,7 @@ import ServiceOverview from '@/components/services/ServicesOverview';
 import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
+import PortfolioShowcase from '@/components/services/PortfolioShowcase';
 import { 
     Code, 
     Layers, 
@@ -13,7 +14,13 @@ import {
     Lightbulb,
     PenTool,
     Cpu,
-    Search
+    Search,
+    Blocks,
+    CodeSquare,
+    AppWindow,
+    Zap,
+    ShoppingCart,
+    Server,
   } from 'lucide-react';
 const WebDevelopmentService = () => {
     const webDevOfferings = {
@@ -22,34 +29,40 @@ const WebDevelopmentService = () => {
         description: "Transform your digital presence with our end-to-end web development expertise, crafting scalable, performant, and visually stunning web applications.",
         offerings: [
           {
-            icon: <Code size={48} className="text-blue-400" />,
+            icon: <CodeSquare size={32} className="text-blue-400" />,
             title: "Custom Web Development",
-            description: "Tailored web solutions using modern frameworks like React, Next.js, and TypeScript to meet your unique business requirements."
+            description: "Tailored web solutions using modern frameworks like React, Next.js, and TypeScript to meet your unique business requirements.",
+            gradient: "bg-gradient-to-br from-blue-600/10 to-cyan-600/10"
           },
           {
-            icon: <Layers size={48} className="text-green-400" />,
+            icon: <Blocks size={32} className="text-emerald-400" />,
             title: "Full-Stack Engineering",
-            description: "Seamless integration of front-end and back-end technologies, creating robust, scalable web applications with optimal performance."
+            description: "Seamless integration of front-end and back-end technologies, creating robust, scalable web applications with optimal performance.",
+            gradient: "bg-gradient-to-br from-emerald-600/10 to-teal-600/10"
           },
           {
-            icon: <Monitor size={48} className="text-purple-400" />,
+            icon: <AppWindow size={32} className="text-purple-400" />,
             title: "Responsive Design",
-            description: "Mobile-first, responsive designs that provide seamless user experiences across all devices and screen sizes."
+            description: "Mobile-first, responsive designs that provide seamless user experiences across all devices and screen sizes.",
+            gradient: "bg-gradient-to-br from-purple-600/10 to-pink-600/10"
           },
           {
-            icon: <Rocket size={48} className="text-red-400" />,
+            icon: <Zap size={32} className="text-amber-400" />,
             title: "Performance Optimization",
-            description: "Advanced optimization techniques to ensure lightning-fast load times, improved SEO, and superior user engagement."
+            description: "Advanced optimization techniques to ensure lightning-fast load times, improved SEO, and superior user engagement.",
+            gradient: "bg-gradient-to-br from-amber-600/10 to-yellow-600/10"
           },
           {
-            icon: <Globe size={48} className="text-cyan-400" />,
+            icon: <ShoppingCart size={32} className="text-rose-400" />,
             title: "E-commerce Solutions",
-            description: "Powerful, secure e-commerce platforms with integrated payment gateways, inventory management, and user-friendly interfaces."
+            description: "Powerful, secure e-commerce platforms with integrated payment gateways, inventory management, and user-friendly interfaces.",
+            gradient: "bg-gradient-to-br from-rose-600/10 to-red-600/10"
           },
           {
-            icon: <Database size={48} className="text-orange-400" />,
+            icon: <Server size={32} className="text-indigo-400" />,
             title: "CMS & Backend Development",
-            description: "Custom Content Management Systems and robust backend architectures using Node.js, Express, and modern database technologies."
+            description: "Custom Content Management Systems and robust backend architectures using Node.js, Express, and modern database technologies.",
+            gradient: "bg-gradient-to-br from-indigo-600/10 to-violet-600/10"
           }
         ]
       };
@@ -160,6 +173,42 @@ const WebDevelopmentService = () => {
         ]
       };
 
+      const webDevPortfolio = {
+        category: "Featured Projects",
+        title: "Our Web Development Success Stories",
+        description: "Explore some of our recent web development projects that showcase our expertise and capabilities.",
+        projects: [
+          {
+            title: "E-Commerce Platform",
+            description: "A full-featured online shopping platform with real-time inventory management and secure payment processing.",
+            image: "/portfolio/ecommerce-project.jpg",
+            tags: ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
+            link: "/portfolio/ecommerce"
+          },
+          {
+            title: "SaaS Dashboard",
+            description: "Modern analytics dashboard with real-time data visualization and user management system.",
+            image: "/portfolio/saas-dashboard.jpg",
+            tags: ["React", "Node.js", "D3.js", "AWS"],
+            link: "/portfolio/saas-dashboard"
+          },
+          {
+            title: "Healthcare Platform",
+            description: "HIPAA-compliant healthcare management system with telemedicine capabilities.",
+            image: "/portfolio/healthcare-platform.jpg",
+            tags: ["React", "Express", "MongoDB", "WebRTC"],
+            link: "/portfolio/healthcare"
+          },
+          {
+            title: "Real Estate Portal",
+            description: "Property listing and management platform with virtual tour integration.",
+            image: "/portfolio/real-estate-portal.jpg",
+            tags: ["Next.js", "Three.js", "Firebase", "Google Maps"],
+            link: "/portfolio/real-estate"
+          }
+        ]
+      };
+
   return (
     <>
     <ServiceOverview
@@ -176,6 +225,7 @@ const WebDevelopmentService = () => {
       {...webDevOfferings}
     />
     <ServiceProcess {...webDevProcess} />
+    <PortfolioShowcase {...webDevPortfolio} />
     <TechStack {...webDevTechStack} />
     </>
   );
