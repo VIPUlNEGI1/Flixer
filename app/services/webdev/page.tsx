@@ -25,7 +25,7 @@ import {
 const WebDevelopmentService = () => {
     const webDevOfferings = {
         category: "Comprehensive Web Solutions",
-        title: "Cutting-Edge Web Development Services",
+        title: "Cutting Edge Web Development Services",
         description: "Transform your digital presence with our end-to-end web development expertise, crafting scalable, performant, and visually stunning web applications.",
         offerings: [
           {
