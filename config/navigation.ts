@@ -25,14 +25,14 @@ export const navigationConfig = {
       href: '/',
       icon: Settings,
       subMenu: [
-        { id: 'cloud', label: 'Cloud Solutions', href: '/cloud', icon: Cloud },
-        { id: 'web', label: 'Web Development', href: '/webdev', icon: Globe },
-        { id: 'digital', label: 'Digital Strategy', href: '/digital-strategy', icon: Brain },
-        { id: 'cyber', label: 'Cybersecurity', href: '/cybersecurity', icon: Shield },
-        { id: 'mobile', label: 'Mobile Solutions', href: '/mobile-solutions', icon: Smartphone },
-        { id: 'data', label: 'Data Analytics', href: '/data-analytics', icon: Database },
-        { id: 'ai', label: 'AI Solutions', href: '/ai-solutions', icon: Bot },
-        { id: 'devops', label: 'DevOps Services', href: '/devops' , icon: Infinity }
+        { id: 'cloud', label: 'Cloud Solutions', href: '/services/cloud', icon: Cloud },
+        { id: 'web', label: 'Web Development', href: '/services/webdev', icon: Globe },
+        { id: 'digital', label: 'Digital Strategy', href: '/services/digital-strategy', icon: Brain },
+        { id: 'cyber', label: 'Cybersecurity', href: '/services/cybersecurity', icon: Shield },
+        { id: 'mobile', label: 'Mobile Solutions', href: '/services/mobile-solutions', icon: Smartphone },
+        { id: 'data', label: 'Data Analytics', href: '/services/data-analytics', icon: Database },
+        { id: 'ai', label: 'AI Solutions', href: '/services/ai-solutions', icon: Bot },
+        { id: 'devops', label: 'DevOps Services', href: '/services/devops' , icon: Infinity }
       ]
     },
     {
