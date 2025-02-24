@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiPython, SiTensorflow, SiTableau, SiSnowflake, SiApachespark, SiPowerbi } from 'react-icons/si';
 import { 
   BarChart,
   PieChart,
@@ -121,37 +122,37 @@ const DataAnalyticsService = () => {
     description: "We utilize cutting-edge technologies and tools for sophisticated data analytics.",
     technologies: [
       {
-        icon: "/icons/python.svg",
+        icon: <SiPython size={40} className="text-blue-600" />,
         name: "Python",
         description: "Advanced data analysis and machine learning",
         gradient: "bg-gradient-to-br from-blue-600/20 to-yellow-600/20"
       },
       {
-        icon: "/icons/tensorflow.svg",
+        icon: <SiTensorflow size={40} className="text-orange-600" />,
         name: "TensorFlow",
         description: "Deep learning and neural networks",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/tableau.svg",
+        icon: <SiTableau size={40} className="text-green-600" />,
         name: "Tableau",
         description: "Interactive data visualization",
         gradient: "bg-gradient-to-br from-blue-600/20 to-purple-600/20"
       },
       {
-        icon: "/icons/snowflake.svg",
+        icon: <SiSnowflake size={40} className="text-blue-600" />,
         name: "Snowflake",
         description: "Cloud data warehousing",
         gradient: "bg-gradient-to-br from-cyan-600/20 to-blue-600/20"
       },
       {
-        icon: "/icons/spark.svg",
+        icon: <SiApachespark size={40} className="text-yellow-600" />,
         name: "Apache Spark",
         description: "Large-scale data processing",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/powerbi.svg",
+        icon: <SiPowerbi size={40} className="text-amber-600" />,
         name: "Power BI",
         description: "Business intelligence and reporting",
         gradient: "bg-gradient-to-br from-yellow-600/20 to-amber-600/20"

@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiSplunk, SiBugcrowd, SiPaloaltosoftware, SiOkta, SiCachet } from 'react-icons/si';
 import { 
   Shield,
   Lock,
@@ -122,37 +123,37 @@ const CybersecurityService = () => {
     description: "We utilize industry-leading security tools and technologies to protect your assets.",
     technologies: [
       {
-        icon: "/icons/splunk.svg",
+        icon: <SiSplunk size={40} className="text-yellow-600" />,
         name: "Splunk",
         description: "Security information and event management",
         gradient: "bg-gradient-to-br from-orange-600/20 to-yellow-600/20"
       },
       {
-        icon: "/icons/crowdstrike.svg",
+        icon: <SiBugcrowd size={40} className="text-red-600" />,
         name: "CrowdStrike",
         description: "Endpoint detection and response",
         gradient: "bg-gradient-to-br from-red-600/20 to-rose-600/20"
       },
       {
-        icon: "/icons/paloalto.svg",
+        icon: <SiPaloaltosoftware size={40} className="text-blue-600" />,
         name: "Palo Alto",
         description: "Next-generation firewall protection",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/rapid7.svg",
+        icon: <SiCachet size={40} className="text-indigo-600" />,
         name: "Rapid7",
         description: "Vulnerability assessment and management",
         gradient: "bg-gradient-to-br from-purple-600/20 to-pink-600/20"
       },
       {
-        icon: "/icons/okta.svg",
+        icon: <SiOkta size={40} className="text-green-600" />,
         name: "Okta",
         description: "Identity and access management",
         gradient: "bg-gradient-to-br from-blue-600/20 to-indigo-600/20"
       },
       {
-        icon: "/icons/carbonblack.svg",
+        icon: <SiCachet size={40} className="text-amber-600" />,
         name: "Carbon Black",
         description: "Endpoint security and threat analysis",
         gradient: "bg-gradient-to-br from-gray-600/20 to-slate-600/20"

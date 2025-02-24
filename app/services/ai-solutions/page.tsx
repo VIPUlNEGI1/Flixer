@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiTensorflow, SiPytorch, SiOpencv, SiHugo, SiKubernetes } from 'react-icons/si';
 import { 
   Brain,
   Bot,
@@ -121,37 +122,37 @@ const AISolutionsService = () => {
     description: "We leverage the latest AI and ML technologies to build intelligent solutions.",
     technologies: [
       {
-        icon: "/icons/tensorflow.svg",
+        icon: <SiTensorflow size={40} className="text-blue-600" />,
         name: "TensorFlow",
         description: "Deep learning and neural networks",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/pytorch.svg",
+        icon: <SiPytorch size={40} className="text-purple-600" />,
         name: "PyTorch",
         description: "Advanced machine learning framework",
         gradient: "bg-gradient-to-br from-purple-600/20 to-pink-600/20"
       },
       {
-        icon: "/icons/scikit-learn.svg",
+        icon: <SiTensorflow size={40} className="text-green-600" />,
         name: "Scikit-learn",
         description: "Machine learning algorithms",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/opencv.svg",
+        icon: <SiOpencv size={40} className="text-red-600" />,
         name: "OpenCV",
         description: "Computer vision processing",
         gradient: "bg-gradient-to-br from-green-600/20 to-emerald-600/20"
       },
       {
-        icon: "/icons/huggingface.svg",
+        icon: <SiHugo size={40} className="text-yellow-600" />,
         name: "Hugging Face",
         description: "NLP models and transformers",
         gradient: "bg-gradient-to-br from-yellow-600/20 to-amber-600/20"
       },
       {
-        icon: "/icons/kubernetes.svg",
+        icon: <SiKubernetes size={40} className="text-blue-600" />,
         name: "Kubernetes",
         description: "AI model deployment",
         gradient: "bg-gradient-to-br from-blue-600/20 to-indigo-600/20"

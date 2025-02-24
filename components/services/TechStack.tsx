@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface TechItemProps {
-  icon: string;
+  icon: React.ReactNode;
   name: string;
   description: string;
   gradient: string;
@@ -20,7 +20,7 @@ const TechItem: React.FC<TechItemProps> = ({ icon, name, description, gradient }
     
     <div className="relative space-y-4">
       <div className="w-16 h-16 rounded-xl bg-white/10 backdrop-blur p-3">
-        <img src={icon} alt={name} className="w-full h-full object-contain" />
+        {icon}
       </div>
       <h3 className="text-xl font-semibold text-white">{name}</h3>
       <p className="text-gray-300 leading-relaxed">{description}</p>

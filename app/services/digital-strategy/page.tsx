@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiGoogleanalytics, SiHubspot, SiSemrush, SiTableau, SiMailchimp, SiSalesforce } from 'react-icons/si';
 import { 
   LineChart,
   Target,
@@ -122,37 +123,37 @@ const DigitalStrategyService = () => {
     description: "We leverage advanced tools and platforms to develop and execute effective digital strategies.",
     technologies: [
       {
-        icon: "/icons/google-analytics.svg",
+        icon: <SiGoogleanalytics size={32} className="text-blue-600" />,
         name: "Google Analytics",
         description: "Advanced web analytics and user behavior tracking",
         gradient: "bg-gradient-to-br from-orange-600/20 to-yellow-600/20"
       },
       {
-        icon: "/icons/hubspot.svg",
+        icon: <SiHubspot size={40} className="text-orange-600" />,
         name: "HubSpot",
         description: "Integrated marketing and CRM platform",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/semrush.svg",
+        icon: <SiSemrush size={40} className="text-green-600" />,
         name: "SEMrush",
         description: "Comprehensive digital marketing suite",
         gradient: "bg-gradient-to-br from-green-600/20 to-teal-600/20"
       },
       {
-        icon: "/icons/tableau.svg",
+        icon: <SiTableau size={40} className="text-blue-600" />,
         name: "Tableau",
         description: "Data visualization and business intelligence",
         gradient: "bg-gradient-to-br from-blue-600/20 to-purple-600/20"
       },
       {
-        icon: "/icons/mailchimp.svg",
+        icon: <SiMailchimp size={40} className="text-yellow-600" />,
         name: "Mailchimp",
         description: "Email marketing and automation platform",
         gradient: "bg-gradient-to-br from-yellow-600/20 to-amber-600/20"
       },
       {
-        icon: "/icons/salesforce.svg",
+        icon: <SiSalesforce size={40} className="text-blue-600" />,
         name: "Salesforce",
         description: "Enterprise CRM and business platform",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"

@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiSwift, SiKotlin, SiReact, SiFlutter, SiFirebase, SiRealm } from 'react-icons/si';
 import { 
   Smartphone,
   TabletSmartphone,
@@ -122,37 +123,37 @@ const MobileSolutionsService = () => {
     description: "We use the latest mobile technologies and frameworks to build powerful applications.",
     technologies: [
       {
-        icon: "/icons/swift.svg",
+        icon: <SiSwift size={40} className="text-blue-600" />,
         name: "Swift",
         description: "Native iOS development",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/kotlin.svg",
+        icon: <SiKotlin size={40} className="text-green-600" />,
         name: "Kotlin",
         description: "Native Android development",
         gradient: "bg-gradient-to-br from-blue-600/20 to-purple-600/20"
       },
       {
-        icon: "/icons/react-native.svg",
+        icon: <SiReact size={40} className="text-blue-600" />,
         name: "React Native",
         description: "Cross-platform mobile development",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/flutter.svg",
+        icon: <SiFlutter size={40} className="text-cyan-600" />,
         name: "Flutter",
         description: "Cross-platform UI development",
         gradient: "bg-gradient-to-br from-cyan-600/20 to-blue-600/20"
       },
       {
-        icon: "/icons/firebase.svg",
+        icon: <SiFirebase size={40} className="text-yellow-600" />,
         name: "Firebase",
         description: "Mobile backend and analytics",
         gradient: "bg-gradient-to-br from-yellow-600/20 to-orange-600/20"
       },
       {
-        icon: "/icons/realm.svg",
+        icon: <SiRealm size={40} className="text-purple-600" />,
         name: "Realm",
         description: "Mobile database solution",
         gradient: "bg-gradient-to-br from-purple-600/20 to-violet-600/20"

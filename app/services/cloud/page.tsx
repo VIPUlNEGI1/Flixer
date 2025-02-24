@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiAmazonaws, SiAzuredevops, SiGooglecloud, SiKubernetes, SiDocker, SiTerraform, SiJenkins, SiPrometheus } from 'react-icons/si';
 import { 
   Cloud,
   Server,
@@ -123,49 +124,49 @@ const CloudService = () => {
     description: "We leverage the most powerful cloud technologies to build robust and scalable solutions.",
     technologies: [
       {
-        icon: "/icons/aws.svg",
+        icon: <SiAmazonaws size={40} className="text-yellow-400" />,
         name: "Amazon AWS",
         description: "Leading cloud platform with comprehensive services",
         gradient: "bg-gradient-to-br from-orange-600/20 to-yellow-600/20"
       },
       {
-        icon: "/icons/azure.svg",
+        icon: <SiAzuredevops size={40} className="text-blue-400" />,
         name: "Microsoft Azure",
         description: "Enterprise-grade cloud computing platform",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/gcp.svg",
+        icon: <SiGooglecloud size={40} className="text-red-400" />,
         name: "Google Cloud",
         description: "Innovative cloud services and solutions",
         gradient: "bg-gradient-to-br from-red-600/20 to-orange-600/20"
       },
       {
-        icon: "/icons/kubernetes.svg",
+        icon: <SiKubernetes size={40} className="text-blue-400" />,
         name: "Kubernetes",
         description: "Container orchestration and management",
         gradient: "bg-gradient-to-br from-blue-600/20 to-indigo-600/20"
       },
       {
-        icon: "/icons/docker.svg",
+        icon: <SiDocker size={40} className="text-blue-400" />,
         name: "Docker",
         description: "Containerization platform for applications",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/terraform.svg",
+        icon: <SiTerraform size={40} className="text-purple-400" />,
         name: "Terraform",
         description: "Infrastructure as Code automation",
         gradient: "bg-gradient-to-br from-purple-600/20 to-violet-600/20"
       },
       {
-        icon: "/icons/jenkins.svg",
+        icon: <SiJenkins size={40} className="text-blue-400" />,
         name: "Jenkins",
         description: "Continuous Integration and Deployment",
         gradient: "bg-gradient-to-br from-red-600/20 to-rose-600/20"
       },
       {
-        icon: "/icons/prometheus.svg",
+        icon: <SiPrometheus size={40} className="text-yellow-400" />,
         name: "Prometheus",
         description: "Monitoring and alerting toolkit",
         gradient: "bg-gradient-to-br from-orange-600/20 to-amber-600/20"

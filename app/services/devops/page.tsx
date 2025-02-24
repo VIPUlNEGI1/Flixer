@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiJenkins, SiKubernetes, SiTerraform, SiAnsible, SiPrometheus, SiGitlab } from 'react-icons/si';
 import { 
   GitBranch,
   Workflow,
@@ -122,37 +123,37 @@ const DevOpsService = () => {
     description: "We leverage modern DevOps tools and platforms to deliver efficient solutions.",
     technologies: [
       {
-        icon: "/icons/jenkins.svg",
+        icon: <SiJenkins size={40} className="text-blue-600" />,
         name: "Jenkins",
         description: "Continuous Integration and Deployment",
         gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
       },
       {
-        icon: "/icons/kubernetes.svg",
+        icon: <SiKubernetes size={40} className="text-blue-600" />,
         name: "Kubernetes",
         description: "Container orchestration platform",
         gradient: "bg-gradient-to-br from-blue-600/20 to-indigo-600/20"
       },
       {
-        icon: "/icons/terraform.svg",
+        icon: <SiTerraform size={40} className="text-purple-600" />,
         name: "Terraform",
         description: "Infrastructure as Code",
         gradient: "bg-gradient-to-br from-purple-600/20 to-pink-600/20"
       },
       {
-        icon: "/icons/ansible.svg",
+        icon: <SiAnsible size={40} className="text-green-600" />,
         name: "Ansible",
         description: "Configuration management",
         gradient: "bg-gradient-to-br from-red-600/20 to-orange-600/20"
       },
       {
-        icon: "/icons/prometheus.svg",
+        icon: <SiPrometheus size={40} className="text-yellow-600" />,
         name: "Prometheus",
         description: "Monitoring and alerting",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"
       },
       {
-        icon: "/icons/gitlab.svg",
+        icon: <SiGitlab size={40} className="text-orange-600" />,
         name: "GitLab",
         description: "Source control and CI/CD",
         gradient: "bg-gradient-to-br from-orange-600/20 to-red-600/20"

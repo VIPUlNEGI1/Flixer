@@ -4,6 +4,7 @@ import ServiceOfferings from '@/components/services/ServiceOfferings';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import TechStack from '@/components/services/TechStack';
 import PortfolioShowcase from '@/components/services/PortfolioShowcase';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiAmazonaws, SiDocker, SiNodedotjs } from "react-icons/si";
 import { 
     Code, 
     Layers, 
@@ -22,6 +23,7 @@ import {
     ShoppingCart,
     Server,
   } from 'lucide-react';
+import { li } from 'framer-motion/client';
 const WebDevelopmentService = () => {
     const webDevOfferings = {
         category: "Comprehensive Web Solutions",
@@ -123,49 +125,49 @@ const WebDevelopmentService = () => {
         description: "We leverage cutting-edge technologies and frameworks to deliver scalable and maintainable solutions.",
         technologies: [
           {
-            icon: "/icons/react.svg",
+            icon: <SiReact size={40} className="text-yellow-400" />,
             name: "React",
             description: "Building interactive UIs with the most popular front-end library",
             gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
           },
           {
-            icon: "/icons/nextjs.svg",
+            icon: <SiNextdotjs size={40} className="text-gray-400" />,
             name: "Next.js",
             description: "Server-side rendering and static generation for optimal performance",
             gradient: "bg-gradient-to-br from-gray-600/20 to-slate-600/20"
           },
           {
-            icon: "/icons/typescript.svg",
+            icon: <SiTypescript size={40} className="text-blue-400" />,
             name: "TypeScript",
             description: "Type-safe development for more reliable applications",
             gradient: "bg-gradient-to-br from-blue-600/20 to-indigo-600/20"
           },
           {
-            icon: "/icons/tailwind.svg",
+            icon: <SiTailwindcss size={40} className="text-cyan-400" />,
             name: "Tailwind CSS",
             description: "Utility-first CSS framework for rapid UI development",
             gradient: "bg-gradient-to-br from-cyan-600/20 to-teal-600/20"
           },
           {
-            icon: "/icons/node.svg",
+            icon: <SiNodedotjs size={40} className="text-green-400" />,
             name: "Node.js",
             description: "Server-side JavaScript runtime for scalable backends",
             gradient: "bg-gradient-to-br from-green-600/20 to-emerald-600/20"
           },
           {
-            icon: "/icons/postgresql.svg",
+            icon: <SiPostgresql size={40} className="text-blue-400" />,
             name: "PostgreSQL",
             description: "Robust relational database for data persistence",
             gradient: "bg-gradient-to-br from-blue-600/20 to-purple-600/20"
           },
           {
-            icon: "/icons/aws.svg",
+            icon: <SiAmazonaws size={40} className="text-orange-400" />,
             name: "AWS",
             description: "Cloud infrastructure for reliable deployment and scaling",
             gradient: "bg-gradient-to-br from-orange-600/20 to-yellow-600/20"
           },
           {
-            icon: "/icons/docker.svg",
+            icon: <SiDocker size={40} className="text-blue-400" />,
             name: "Docker",
             description: "Containerization for consistent development and deployment",
             gradient: "bg-gradient-to-br from-blue-600/20 to-sky-600/20"
