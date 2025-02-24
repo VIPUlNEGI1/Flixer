@@ -5,17 +5,18 @@ import IndustriesSection from "@/components/IndustriesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import ConsultingProcessSection from "@/components/ProcessSection";
+import TrustedBrand from "@/components/TrustedBrands";
 
 export default function Home() {
   return (
     <div>
-    <HeroSection/>
-    <ServicesSection/>
-    <IndustriesSection/>
-    <WhyChooseUsSection/>
-    <ConsultingProcessSection/>
-    <TestimonialsSection/>
-    
+      <HeroSection/>
+      <TrustedBrand/>
+      <ServicesSection/>
+      <IndustriesSection/>
+      <WhyChooseUsSection/>
+      <ConsultingProcessSection/>
+      <TestimonialsSection/>
     </div>
   );
 }

@@ -56,10 +56,59 @@
   50% { transform: translateY(-15px); }
 }
 
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-140px * 5));
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-180px * 5));
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes slide {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-250px * 5));
+    }
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
 .animate-float-delayed {
   animation: float-delayed 8s ease-in-out infinite;
+}
+
+.animate-slide {
+  animation: slide 40s linear infinite;
+  animation-play-state: running;
+}
+
+.animate-slide-reverse {
+  animation: slide 40s linear infinite reverse;
+  animation-play-state: running;
+}
+
+.animate-slide-slower {
+  animation: slide 35s linear infinite;
+}
+
+.pause-animation {
+  animation-play-state: paused;
 }
