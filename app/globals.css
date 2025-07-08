@@ -112,3 +112,24 @@
 .pause-animation {
   animation-play-state: paused;
 }
+/* styles/globals.css */
+.testimonial-container {
+  height: 300px; /* Adjust height to show 1-2 testimonials at a time */
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-scroll {
+  display: flex;
+  flex-direction: column;
+  animation: scroll 15s linear infinite; /* Adjust speed with 15s */
+}
+
+.testimonial-scroll:hover {
+  animation-play-state: paused; /* Pause on hover */
+}
+
+@keyframes scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}

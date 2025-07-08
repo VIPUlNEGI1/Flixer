@@ -7,6 +7,7 @@ interface TechItemProps {
   gradient: string;
 }
 
+
 interface TechStackProps {
   category: string;
   title: string;
