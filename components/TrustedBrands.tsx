@@ -246,12 +246,11 @@ export default function ToursTravel() {
                     <div className="absolute inset-0 bg-black/40"></div>
 
                     {/* Duration Badge */}
-                    <Badge
-                      className="absolute top-4 right-4 bg-black/70 text-white"
-                      icon={<Calendar className="w-3 h-3 mr-1" />}
-                    >
-                      {tour.duration}
-                    </Badge>
+                   <Badge className="absolute top-4 right-4 bg-black/70 text-white">
+  <Calendar className="w-3 h-3 mr-1 inline-block" />
+  {tour.duration}
+</Badge>
+
 
                     {/* Best Seller Badge */}
                     {tour.isBestSeller && (
