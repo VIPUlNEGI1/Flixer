@@ -7,8 +7,13 @@ import { Link } from "react-router-dom"
  
 
 import SubMenu from "./SubMenu"
-
-export default function MobileMenu({ items, isOpen, onClose }) {
+interface MobileMenuProps {
+  items: any[]; // Replace 'any' with a more specific type if available
+  isOpen: boolean;
+  onClose: () => void;
+}
+export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
+{
   const [activeSubmenu, setActiveSubmenu] = useState(null)
 
   return (
