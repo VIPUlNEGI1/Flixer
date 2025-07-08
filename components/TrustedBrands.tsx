@@ -137,12 +137,13 @@ export default function ToursTravel() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-gray-900">Filter Tours</h2>
-                  <Button
-                    variant="link"
-                    className="text-blue-600 text-sm p-0 hover:underline"
-                  >
-                    View All →
-                  </Button>
+                 <Button
+  variant="ghost"
+  className="text-blue-600 text-sm p-0 hover:underline"
+>
+  View All →
+</Button>
+
                 </div>
 
                 <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
