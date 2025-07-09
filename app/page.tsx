@@ -12,9 +12,11 @@ export default function Home() {
   return (
     <div>
       <HeroSection/>
+      
+      
+      
       <Suspense fallback={<div>Loading...</div>}>
       <TrustedBrand/>
-   
     </Suspense>
       {/* <ServicesSection/>
       <IndustriesSection/>

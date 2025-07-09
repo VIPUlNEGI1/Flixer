@@ -239,7 +239,7 @@ export default function ToursTravel() {
                 {selectedFilters.length > 0 && (
                   <Button
                     variant="outline"
-                    className="mt-6 w-full bg-transparent border-gray-300 hover:bg-gray-100"
+                    className="mt-6 w-full bg-transparent border-gray-300 hover:bg-gray-100  "
                     onClick={clearFilters}
                   >
                     Clear All
@@ -278,16 +278,16 @@ export default function ToursTravel() {
             <div className="mb-8">
               <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 rounded-xl p-6 text-center relative overflow-hidden shadow-lg">
                 <div className="relative z-10">
-                  <h2 className="text-3xl font-extrabold text-white mb-2 drop-shadow-md">
+                  <h2 className="text-3xl font-extrabold text-white mb-2 drop-shadow-md bg">
                     HOLY TRAILS
                   </h2>
                   <h3 className="text-2xl font-bold text-red-900 mb-4 drop-shadow-md">
                     HIMALAYAN SOULS
                   </h3>
                   <div className="flex flex-wrap justify-center gap-2 mb-4">
-                    <Badge className="bg-blue-700 text-white">CHAR DHAM YATRA</Badge>
-                    <Badge className="bg-blue-700 text-white">TEEN DHAM YATRA</Badge>
-                    <Badge className="bg-blue-700 text-white">DO DHAM</Badge>
+                    <Badge className="bg-blue-700 text-black">CHAR DHAM YATRA</Badge>
+                    <Badge className="bg-blue-700 text-black">TEEN DHAM YATRA</Badge>
+                    <Badge className="bg-blue-700 text-black">DO DHAM</Badge>
                   </div>
                   <Button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold">
                     EXPLORE NOW
@@ -335,7 +335,7 @@ export default function ToursTravel() {
                           className="object-cover"
                         />
                         <div className="absolute inset-0 bg-black/40"></div>
-                        <Badge className="absolute top-4 right-4 bg-black/70 text-white">
+                        <Badge className="absolute top-4 right-4 bg-black/70 text-black">
                           <Calendar className="w-3 h-3 mr-1 inline-block" />
                           {tour.duration}
                         </Badge>

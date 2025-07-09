@@ -76,7 +76,7 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
             className="fixed right-0 top-0 bottom-0 w-[320px] bg-gradient-to-b from-green-900 via-green-800 to-green-900 z-50 shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-green-700/50">
+            <div className="flex items-center justify-between p-6 border-b border-green-700/50 bg-green-950">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-green-900 rounded-full flex items-center justify-center">
                   <span className="text-white font-bold text-sm">JW</span>
@@ -96,7 +96,7 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
             </div>
 
             {/* Navigation */}
-            <nav className="p-4 space-y-2 flex-1 overflow-y-auto bg-green-900/100">
+            <nav className="p-4 space-y-2 flex-1 overflow-y-auto bg-green-900">
               {items.map((item) => (
                 <div key={item.id}>
                   {item.subMenu && item.subMenu.length > 0 ? (
@@ -145,7 +145,7 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
             </nav>
 
             {/* Footer */}
-            <div className="p-4 border-t border-green-900 space-y-4">
+            <div className="p-4 border-t border-green-900  bg-green-900 space-y-4">
               {/* Contact Info */}
               <div className="flex items-center space-x-3 p-3 bg-green-800 rounded-xl">
                 <Phone className="w-5 h-5 text-green-300" />
