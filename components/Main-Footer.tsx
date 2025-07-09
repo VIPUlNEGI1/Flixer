@@ -31,7 +31,7 @@ export const Footer = () => {
           <div className="space-y-5">
             <div className="flex items-center space-x-2">
               <Compass className="h-6 w-6 text-blue-600" />
-              <h3 className="text-2xl font-bold text-gray-900">JustWravel</h3>
+              <h3 className="text-2xl font-bold text-gray-900">Gnet</h3>
             </div>
             <p className="text-sm text-gray-600 italic">A quick, travelx comment</p>
             
@@ -177,3 +177,4 @@ import {
   Shield,
   FileText,
 } from "lucide-react";
+
