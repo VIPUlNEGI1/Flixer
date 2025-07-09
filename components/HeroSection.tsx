@@ -43,7 +43,7 @@ export default function Component() {
                   placeholder="Type Location... (min. 3"
                   className="border-0 bg-transparent flex-1 text-gray-700 placeholder:text-gray-500 focus:outline-none px-4 py-2"
                 />
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-3xl">Search</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-r-3xl rounded-l-">Search</Button>
               </div>
               {/* Green Arrow */}
               <div className="absolute -right-16 top-1/2 transform -translate-y-1/2">

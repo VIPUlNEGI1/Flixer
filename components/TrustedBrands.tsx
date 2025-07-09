@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -106,12 +107,17 @@ const filterOptions = [
 ];
 
 export default function ToursTravel() {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>(["independence-day"]);
+  const searchParams = useSearchParams();
+  const initialFilter = searchParams.get("filter") || "independence-day";
+  const searchQuery = searchParams.get("search") || "";
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([initialFilter]);
   const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    console.log("Selected Filters:", selectedFilters); // Debug filters
+    console.log("Search Query:", searchQuery); // Debug search query
     const startAutoScroll = () => {
       if (scrollContainerRef.current) {
         scrollIntervalRef.current = setInterval(() => {
@@ -120,20 +126,18 @@ export default function ToursTravel() {
             const maxScroll = scrollWidth - clientWidth;
 
             if (scrollLeft >= maxScroll - 10) {
-              // If at end, scroll back to start
               scrollContainerRef.current.scrollTo({
                 left: 0,
                 behavior: "smooth",
               });
             } else {
-              // Otherwise scroll right
               scrollContainerRef.current.scrollBy({
                 left: 350,
                 behavior: "smooth",
               });
             }
           }
-        }, 3000); // Adjust scroll interval (3 seconds)
+        }, 3000);
       }
     };
 
@@ -157,13 +161,23 @@ export default function ToursTravel() {
   };
 
   const filteredTours = tours.filter((tour) => {
-    if (selectedFilters.length === 0) return true;
-    if (selectedFilters.includes("independence-day")) return true;
-    return selectedFilters.some((filter) => {
-      const filterLabel = filterOptions.find((opt) => opt.id === filter)?.label;
-      return filterLabel && tour.category.includes(filterLabel);
-    });
+    const matchesFilter =
+      selectedFilters.length === 0 ||
+      selectedFilters.includes("independence-day") ||
+      selectedFilters.some((filter) => {
+        const filterLabel = filterOptions.find((opt) => opt.id === filter)?.label;
+        return filterLabel && tour.category.includes(filterLabel);
+      });
+    const matchesSearch = searchQuery
+      ? tour.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tour.route.toLowerCase().includes(searchQuery.toLowerCase())
+      : true;
+    return matchesFilter && matchesSearch;
   });
+
+  useEffect(() => {
+    console.log("Filtered Tours:", filteredTours); // Debug filtered tours
+  }, [filteredTours]);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -285,7 +299,6 @@ export default function ToursTravel() {
 
             {/* Horizontal Scrolling Tours Section */}
             <div className="relative">
-              {/* Navigation Buttons */}
               {filteredTours.length > 0 && (
                 <>
                   <button
@@ -295,7 +308,6 @@ export default function ToursTravel() {
                   >
                     <ChevronLeft className="w-5 h-5 text-gray-700" />
                   </button>
-
                   <button
                     onClick={scrollRight}
                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 hidden md:block"
@@ -306,7 +318,6 @@ export default function ToursTravel() {
                 </>
               )}
 
-              {/* Scrolling Container */}
               <div
                 ref={scrollContainerRef}
                 className="flex overflow-x-auto gap-6 pb-4 scrollbar-hide snap-x snap-mandatory"
@@ -324,18 +335,15 @@ export default function ToursTravel() {
                           className="object-cover"
                         />
                         <div className="absolute inset-0 bg-black/40"></div>
-
                         <Badge className="absolute top-4 right-4 bg-black/70 text-white">
                           <Calendar className="w-3 h-3 mr-1 inline-block" />
                           {tour.duration}
                         </Badge>
-
                         {tour.isBestSeller && (
                           <Badge className="absolute top-4 left-4 bg-orange-500 text-white font-medium">
                             Best Seller
                           </Badge>
                         )}
-
                         <div className="absolute bottom-4 left-4 right-4">
                           <h3 className="text-white font-bold text-lg mb-1 drop-shadow-md">
                             {tour.title}
@@ -346,7 +354,6 @@ export default function ToursTravel() {
                           </div>
                         </div>
                       </div>
-
                       <CardContent className="p-5">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2">
@@ -358,13 +365,11 @@ export default function ToursTravel() {
                             </span>
                           </div>
                         </div>
-
                         {tour.uptoDiscount && (
                           <p className="text-green-600 text-sm font-semibold mb-4">
                             {tour.uptoDiscount}
                           </p>
                         )}
-
                         <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
                           More Details
                         </Button>
@@ -375,10 +380,11 @@ export default function ToursTravel() {
               </div>
             </div>
 
-            {/* No tours found message */}
             {filteredTours.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-600 text-lg font-medium">No tours found for the selected filters.</p>
+                <p className="text-gray-600 text-lg font-medium">
+                  No tours found for the selected filters or search query.
+                </p>
                 <Button
                   variant="outline"
                   className="mt-4 bg-transparent border-gray-300 hover:bg-gray-100"
@@ -392,7 +398,6 @@ export default function ToursTravel() {
         </div>
       </div>
 
-      {/* CSS for hiding scrollbar */}
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;

@@ -57,10 +57,11 @@ export default function Navbar({}: NavbarProps) {
 
               <a href="/" className="flex items-center space-x-2 md:space-x-3">
                 <div
-                  className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-500
-                            to-green-600 flex items-center justify-start shadow-lg"
+                  className=" w-21 
+                             flex items-center justify-start shadow-lg"
                 >
-                  <span className="text-lg md:text-xl font-bold text-white">Travel</span>
+                  <img src="/logo-300x88-1[1].webp" alt="Logo" className="h-8 md:h-10 w-auto" />
+
                 </div>
                 
               </a>
@@ -133,7 +134,7 @@ export default function Navbar({}: NavbarProps) {
                       />
                       <button
                         type="submit"
-                        className="bg-green-600 text-white px-3 py-1.5 rounded-r-md hover:bg-green-700 transition-colors"
+                        className="bg-green-600 text-white px-3 py-1.5 rounded-r-md  hover:bg-green-700 transition-colors"
                       >
                         <Search className="h-4 w-4" />
                       </button>
@@ -151,16 +152,16 @@ export default function Navbar({}: NavbarProps) {
                 </div>
               </div>
               {/* Search Button - Desktop */}
-              <button
+              {/* <button
                 className="hidden md:flex p-2 text-gray-600 hover:text-green-600 
                             hover:bg-green-50 rounded-lg transition-all duration-200"
                 onClick={() => {
-                  // Implement desktop search functionality
+                 
                   console.log("Desktop search clicked")
                 }}
               >
                 <Search className="h-5 w-5" />
-              </button>
+              </button> */}
 
 
               {/* Action Buttons */}
@@ -202,7 +203,7 @@ export default function Navbar({}: NavbarProps) {
       </header>
 
       {/* Search Overlay for Desktop */}
-      {searchOpen && (
+      {/* {searchOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm" onClick={() => setSearchOpen(false)}>
           <div className="flex justify-center pt-20">
             <motion.div
@@ -230,7 +231,7 @@ export default function Navbar({}: NavbarProps) {
             </motion.div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }

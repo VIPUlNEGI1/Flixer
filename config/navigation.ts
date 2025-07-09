@@ -44,7 +44,7 @@ export const navigationConfig = {
     },
     {
       id: "trips",
-      label: "Trip Types",
+      label: "Trip ",
       href: "/trips",
       icon: Backpack,
       subMenu: [
@@ -74,7 +74,7 @@ export const navigationConfig = {
     },
     {
       id: "travel-styles",
-      label: "Travel Styles",
+      label: "Travel ",
       href: "/travel-styles",
       icon: Heart,
       subMenu: [
