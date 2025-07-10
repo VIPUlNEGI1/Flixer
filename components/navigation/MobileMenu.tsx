@@ -82,7 +82,7 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
                   <span className="text-white font-bold text-sm">JW</span>
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-white">JustWravel</h2>
+                  <h2 className="text-lg font-bold text-white">GNET</h2>
                   <p className="text-xs text-green-200">Travel Community</p>
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
                 <Phone className="w-5 h-5 text-green-300" />
                 <div>
                   <p className="text-xs text-green-200">Call Us</p>
-                  <p className="font-semibold text-white">+91 9797972175</p>
+                  <p className="font-semibold text-white">+91 92584 60950</p>
                 </div>
               </div>
 
