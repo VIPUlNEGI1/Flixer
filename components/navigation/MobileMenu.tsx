@@ -151,7 +151,8 @@ export default function MobileMenu({ items, isOpen, onClose }: MobileMenuProps) 
                 <Phone className="w-5 h-5 text-green-300" />
                 <div>
                   <p className="text-xs text-green-200">Call Us</p>
-                  <p className="font-semibold text-white">+91 92584 60950</p>
+                  <p className="font-semibold text-white">+91 9149050623
+</p>
                 </div>
               </div>
 
