@@ -148,7 +148,7 @@ export default function Navbar({}: NavbarProps) {
                 <Phone className="h-4 w-4 text-green-600" />
                 <div>
                   <p className="text-xs font-medium">Call Us</p>
-                  <p className="font-semibold text-gray-800">+91 9797972175</p>
+                  <p className="font-semibold text-gray-800">+91 92584 60950 </p>
                 </div>
               </div>
               {/* Search Button - Desktop */}
