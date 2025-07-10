@@ -38,20 +38,21 @@ export const Footer = () => {
             <address className="text-sm not-italic text-gray-700 space-y-2">
               <div className="flex items-start space-x-2">
                 <Building className="h-4 w-4 text-blue-500 mt-0.5" />
-                <span>8–42, 2nd Floor, Tower - B. The<br />
-                Ceremonium Block, A Sector 62, Inside,<br />
-                Utter Products 2030/1</span>
+                <span> Bangali Kothi Near Bank of Baroda  <br />
+                Dehradun Uttarakhand 248001  <br />
+               </span>
               </div>
             </address>
             
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <PhoneCall className="h-4 w-4 text-blue-500" />
-                <a href="tel:+91889457631" className="text-sm hover:text-blue-600 transition-colors duration-200">+91-889 457 631</a>
+                <a href="tel:+91 9149050623" className="text-sm hover:text-blue-600 transition-colors duration-200">
++91 9149050623</a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-blue-500" />
-                <a href="mailto:contact@justwravel.com" className="text-sm hover:text-blue-600 transition-colors duration-200">contact@justwravel.com</a>
+                <a href="mailto: " className="text-sm hover:text-blue-600 transition-colors duration-200">xyz@gnet.com</a>
               </div>
             </div>
           </div>
@@ -136,7 +137,7 @@ export const Footer = () => {
         <div className="border-t border-gray-300 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center space-x-2">
             <Compass className="h-5 w-5 text-blue-500" />
-            <p className="text-sm text-gray-600">© 2015–2025 JustWravel Pvt. Ltd.</p>
+{/*             <p className="text-sm text-gray-600">© 2015–2025 JustWravel Pvt. Ltd.</p> */}
           </div>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
