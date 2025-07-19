@@ -1,7 +1,7 @@
 "use client"
  
 import { useState, useEffect } from "react"
-import { User } from "next-auth"
+
 import { useAuth } from "../services/useAuth"
 
 interface UserProfileProps {}

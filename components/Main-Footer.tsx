@@ -2,24 +2,26 @@ import {
   Home,
   MapPin,
   Calendar,
-  Backpack,
-  Mountain,
-  Camera,
   PhoneCall,
-  Plane,
-  Car,
-  Hotel,
   Users,
   Star,
   Heart,
   Compass,
   Globe,
-  TreePine,
-  Waves,
   Building,
   UserCheck,
+  Gift,
+  Info,
+  Link2,
+  Newspaper,
+  Briefcase,
+  CreditCard,
+  Mail,
+  Shield,
+  FileText,
 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
@@ -31,105 +33,128 @@ export const Footer = () => {
           <div className="space-y-5">
             <div className="flex items-center space-x-2">
               <Compass className="h-6 w-6 text-blue-600" />
-              <h3 className="text-2xl font-bold text-gray-900">Gnet</h3>
+              <h3 className="text-2xl font-bold text-gray-900">ShopEase</h3>
             </div>
-            <p className="text-sm text-gray-600 italic">A quick, travelx comment</p>
-            
-            <address className="text-sm not-italic text-gray-700 space-y-2">
-              <div className="flex items-start space-x-2">
-                <Building className="h-4 w-4 text-blue-500 mt-0.5" />
-                <span> Bangali Kothi Near Bank of Baroda  <br />
-                Dehradun Uttarakhand 248001  <br />
-               </span>
-              </div>
-            </address>
+            <p className="text-sm text-gray-600">Your one-stop destination for exclusive deals and offers</p>
             
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <PhoneCall className="h-4 w-4 text-blue-500" />
                 <a href="tel:+91 9149050623" className="text-sm hover:text-blue-600 transition-colors duration-200">
-+91 9149050623</a>
+                  +91 9149050623
+                </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-blue-500" />
-                <a href="mailto: " className="text-sm hover:text-blue-600 transition-colors duration-200">xyz@gnet.com</a>
+                <a href="mailto:contact@shopease.com" className="text-sm hover:text-blue-600 transition-colors duration-200">
+                  contact@shopease.com
+                </a>
+              </div>
+            </div>
+
+            {/* Social Media */}
+            <div className="pt-4">
+              <h4 className="font-medium text-gray-900 mb-3">Connect With Us</h4>
+              <div className="flex space-x-4">
+                {[
+                  { name: "Facebook", icon: "facebook", url: "#" },
+                  { name: "Instagram", icon: "instagram", url: "#" },
+                  { name: "Twitter", icon: "twitter", url: "#" },
+                  { name: "YouTube", icon: "youtube", url: "#" },
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    className="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+                    aria-label={social.name}
+                  >
+                    <span className="sr-only">{social.name}</span>
+                    {/* Replace with actual icons */}
+                    <span className="text-lg">{social.icon === "facebook" ? "f" : 
+                      social.icon === "instagram" ? "ig" : 
+                      social.icon === "twitter" ? "t" : "yt"}</span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
           
-          {/* Company Links */}
+          {/* Quick Links */}
           <div className="space-y-5">
-            <h4 className="font-bold text-lg text-gray-900 flex items-center space-x-2">
-              <Building className="h-5 w-5 text-blue-500" />
-              <span>Company</span>
-            </h4>
+            <h4 className="font-bold text-lg text-gray-900">Quick Links</h4>
             <ul className="space-y-3">
               {[
-                { href: "/travel-gift-cards", label: "Travel Gift Cards", icon: <Gift className="h-4 w-4" /> },
-                { href: "/about-us", label: "About Us", icon: <Info className="h-4 w-4" /> },
-                { href: "/connect-us", label: "Connect Us", icon: <Link2 className="h-4 w-4" /> },
-                { href: "/blogs", label: "Our Blogs", icon: <Newspaper className="h-4 w-4" /> },
-                { href: "/careers", label: "Career With Us", icon: <Briefcase className="h-4 w-4" /> },
-                { href: "/payment-policy", label: "Payment Policy", icon: <CreditCard className="h-4 w-4" /> },
-                { href: "/ambassador-program", label: "Compats Ambassador Program", icon: <UserCheck className="h-4 w-4" /> },
-                { href: "/newsletter", label: "Newsletter", icon: <Mail className="h-4 w-4" /> },
+                { href: "/trending-offers", label: "Trending Offers" },
+                { href: "/daily-deals", label: "Daily Deals" },
+                { href: "/coupons", label: "Coupons" },
+                { href: "/flash-sale", label: "Flash Sale" },
+                { href: "/seasonal-sale", label: "Seasonal Sale" },
+                { href: "/clearance", label: "Clearance Sale" },
               ].map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm flex items-center space-x-2 group">
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">{item.icon}</span>
-                    <span className="group-hover:text-blue-600 group-hover:underline transition-all duration-200">{item.label}</span>
+                  <Link href={item.href} className="text-sm hover:text-blue-600 hover:underline transition-all duration-200">
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           
-          {/* Group Tours */}
+          {/* Customer Support */}
           <div className="space-y-5">
-            <h4 className="font-bold text-lg text-gray-900 flex items-center space-x-2">
-              <Users className="h-5 w-5 text-blue-500" />
-              <span>Group Tours</span>
-            </h4>
+            <h4 className="font-bold text-lg text-gray-900">Customer Support</h4>
             <ul className="space-y-3">
               {[
-                { href: "/trips/backpacking", label: "Backpacking Trips", icon: <Backpack className="h-4 w-4" /> },
-                { href: "/trips/treks", label: "Treks", icon: <Mountain className="h-4 w-4" /> },
-                { href: "/trips/biking", label: "Biking Trips", icon: <Bike className="h-4 w-4" /> },
-                { href: "/trips/upcoming", label: "Upcoming Trips", icon: <Calendar className="h-4 w-4" /> },
-                { href: "/trips/weekend", label: "Long Weekend Trips", icon: <CalendarDays className="h-4 w-4" /> },
-                { href: "/trips/customized", label: "Customized Trips", icon: <Settings className="h-4 w-4" /> },
-                { href: "/trips/corporate", label: "Corporate Tours", icon: <Building2 className="h-4 w-4" /> },
+                { href: "/contact-us", label: "Contact Us" },
+                { href: "/faq", label: "FAQs" },
+                { href: "/shipping", label: "Shipping Policy" },
+                { href: "/returns", label: "Returns & Refunds" },
+                { href: "/size-guide", label: "Size Guide" },
+                { href: "/product-care", label: "Product Care" },
               ].map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm flex items-center space-x-2 group">
-                    <span className="group-hover:rotate-12 transition-transform duration-200">{item.icon}</span>
-                    <span className="group-hover:text-blue-600 group-hover:underline transition-all duration-200">{item.label}</span>
+                  <Link href={item.href} className="text-sm hover:text-blue-600 hover:underline transition-all duration-200">
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           
-          {/* Other Tours */}
+          {/* Newsletter */}
           <div className="space-y-5">
-            <h4 className="font-bold text-lg text-gray-900 flex items-center space-x-2">
-              <Globe className="h-5 w-5 text-blue-500" />
-              <span>Explore More</span>
-            </h4>
-            <ul className="space-y-3">
-              {[
-                { href: "/trips/domestic", label: "Domestic Tours", icon: <MapPin className="h-4 w-4" /> },
-                { href: "/trips/international", label: "International Gateways", icon: <Plane className="h-4 w-4" /> },
-                { href: "/trips/honeymoon", label: "Honeymoon Trips", icon: <Heart className="h-4 w-4" /> },
-              ].map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm flex items-center space-x-2 group">
-                    <span className="group-hover:scale-110 transition-transform duration-200">{item.icon}</span>
-                    <span className="group-hover:text-blue-600 group-hover:underline transition-all duration-200">{item.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <h4 className="font-bold text-lg text-gray-900">Get Exclusive Offers</h4>
+            <p className="text-sm text-gray-600">Subscribe to our newsletter for the latest deals and discounts</p>
+            
+            <form className="space-y-3">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <Button 
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                Subscribe
+              </Button>
+            </form>
+
+            {/* App Download */}
+            <div className="pt-4">
+              <h5 className="text-sm font-medium mb-2">Download Our App</h5>
+              <div className="flex space-x-2">
+                <Button variant="outline" size="sm" className="flex-1">
+                  <span className="mr-2">📱</span>
+                  App Store
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  <span className="mr-2">🤖</span>
+                  Play Store
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -137,7 +162,7 @@ export const Footer = () => {
         <div className="border-t border-gray-300 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center space-x-2">
             <Compass className="h-5 w-5 text-blue-500" />
-{/*             <p className="text-sm text-gray-600">© 2015–2025 JustWravel Pvt. Ltd.</p> */}
+            <p className="text-sm text-gray-600">© 2023 ShopEase. All rights reserved.</p>
           </div>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
@@ -161,21 +186,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
-// You'll need to import these additional icons from lucide-react
-import {
-  Gift,
-  Info,
-  Link2,
-  Newspaper,
-  Briefcase,
-  CreditCard,
-  Mail,
-  Bike,
-  CalendarDays,
-  Settings,
-  Building2,
-  Shield,
-  FileText,
-} from "lucide-react";
-

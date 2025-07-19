@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 export default function AdvertisementOffer() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
 
   const offers = [
     {
@@ -73,11 +74,12 @@ export default function AdvertisementOffer() {
 
   // Auto-rotate offers
   useEffect(() => {
+    if (isHovered) return
     const interval = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % offers.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [offers.length])
+  }, [isHovered, offers.length])
 
   // Auto-rotate cards
   useEffect(() => {
@@ -87,124 +89,128 @@ export default function AdvertisementOffer() {
     return () => clearInterval(interval)
   }, [cards.length])
 
-// ... (keep all your existing imports and data arrays)
-
-const cardContainerVariants = {
-  initial: { 
-    opacity: 0, 
-    x: 50,
-    rotateY: 10,
-    scale: 0.95
-  },
-  animate: {
-    opacity: 1,
-    x: 0,
-    rotateY: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
-      staggerChildren: 0.1
-    }
-  },
-  exit: {
-    opacity: 0,
-    x: -50,
-    rotateY: -10,
-    scale: 0.95,
-    transition: {
-      duration: 0.6,
-      ease: [0.7, 0, 0.84, 0]
+  const cardContainerVariants: Variants = {
+    initial: { 
+      opacity: 0, 
+      x: 50,
+      rotateY: 10,
+      scale: 0.95
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      rotateY: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      x: -50,
+      rotateY: -10,
+      scale: 0.95,
+      transition: {
+        duration: 0.6,
+        ease: "easeInOut"
+      }
     }
   }
-}
 
-const cardItemVariants = {
-  initial: { 
-    opacity: 0, 
-    y: 20,
-    filter: 'blur(2px)'
-  },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { 
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1]
-    } 
+  const cardItemVariants: Variants = {
+    initial: { 
+      opacity: 0, 
+      y: 20,
+      filter: 'blur(2px)'
+    },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { 
+        duration: 0.6,
+        ease: "easeInOut"
+      } 
+    }
   }
-}
 
- 
   return (
-    <section className="relative min-h-[400px] w-full bg-gradient-to-r from-gray-50 to-gray-100 overflow-hidden  pt-16 mb-0 pb-0">
-      <div className="container mx-auto h-full flex flex-col lg:flex-row px-aganst4  gap-0 md:gap-0">
+    <section className="relative min-h-[400px] w-full bg-gradient-to-r from-gray-50 to-gray-100 overflow-hidden pt-16 mb-0 pb-0">
+      <div className="container mx-auto h-full flex flex-col lg:flex-row px-4 gap-0 md:gap-0">
         {/* Left Side - Offer Slider */}
-        <div className="w-[700px] h-[200px] sm:h-[260px] relative  ">
+        <div 
+          className="w-[700px] h-[200px] sm:h-[260px] relative"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <div className="absolute inset-0 overflow-hidden border rounded">
-            {offers.map((offer, index) => (
-              <motion.div
-                key={offer.id}
-                className={`absolute inset-0 ${offer.bgColor} flex items-center`}
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: index === currentSlide ? 1 : 0,
-                  scale: index === currentSlide ? 1 : 0.98
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src={offer.image}
-                  alt={offer.description}
-                  fill
-                  className="object-cover mix-blend-multiply opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-0" />
-                <div className="relative z-10 p-6 sm:p-8 text-white">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-base sm:text-lg md:text-xl font-bold tracking-tight"
-                  >
-                    {offer.title}
-                  </motion.div>
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight my-2"
-                  >
-                    {offer.discount}
-                  </motion.div>
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-sm sm:text-base md:text-lg font-medium mb-4 sm:mb-6"
-                  >
-                    {offer.description}
-                  </motion.div>
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
-                  >
-                    <div className="bg-white/30 backdrop-blur-sm text-black px-3 sm:px-4 py-2 sm:py-3 rounded-[2px] font-mono font-bold tracking-tight text-sm sm:text-base">
-                      USE CODE<br/>{offer.code}
-                    </div>
-                    <Button 
-                      className="bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold rounded-[2px] shadow-md"
-                      size="lg"
+            <AnimatePresence>
+              {offers.map((offer, index) => (
+                <motion.div
+                  key={offer.id}
+                  className={`absolute inset-0 ${offer.bgColor} flex items-center`}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ 
+                    opacity: index === currentSlide ? 1 : 0,
+                    scale: index === currentSlide ? 1 : 0.98
+                  }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Image
+                    src={offer.image}
+                    alt={offer.description}
+                    fill
+                    className="object-cover mix-blend-multiply opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-0" />
+                  <div className="relative z-10 p-6 sm:p-8 text-white">
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-base sm:text-lg md:text-xl font-bold tracking-tight"
                     >
-                      BOOK NOW
-                    </Button>
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
+                      {offer.title}
+                    </motion.div>
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight my-2"
+                    >
+                      {offer.discount}
+                    </motion.div>
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-sm sm:text-base md:text-lg font-medium mb-4 sm:mb-6"
+                    >
+                      {offer.description}
+                    </motion.div>
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
+                    >
+                      <div className="bg-white/30 backdrop-blur-sm text-black px-3 sm:px-4 py-2 sm:py-3 rounded-[2px] font-mono font-bold tracking-tight text-sm sm:text-base">
+                        USE CODE<br/>{offer.code}
+                      </div>
+                      <Button 
+                        className="bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-bold rounded-[2px] shadow-md"
+                        size="lg"
+                      >
+                        BOOK NOW
+                      </Button>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
           {/* Slide Indicators */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
@@ -222,29 +228,82 @@ const cardItemVariants = {
 
         {/* Right Side - Professional Card Section */}
         <div className="w-full lg:w-1/2 h-[200px] sm:h-[260px] relative flex items-center justify-center">
-          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg px-4 sm:px-0 relative ">
-        {/* // In your return statement, update the AnimatePresence section: */}
-<AnimatePresence mode="popLayout" initial={false}>
-  <motion.div
-    key={currentCardIndex}
-    variants={cardContainerVariants}
-    initial="initial"
-    animate="animate"
-    exit="exit"
-    className={`w-full ${cards[currentCardIndex].bgColor} ${cards[currentCardIndex].textColor} border rounded ${cards[currentCardIndex].borderColor}  p-6 sm:p-8 flex flex-col justify-center items-start h-[340px] sm:h-[220px] relative overflow-hidden shadow-sm`}
-    style={{
-      backgroundImage: `url(${cards[currentCardIndex].bgImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundBlendMode: 'multiply',
-      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-      transformStyle: 'preserve-3d',
-      perspective: '1000px'
-    }}
-  >
-    {/* Keep all your existing card content */}
-  </motion.div>
-</AnimatePresence>
+          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg px-4 sm:px-0 relative">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={cards[currentCardIndex].id}
+                variants={cardContainerVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={`w-full ${cards[currentCardIndex].bgColor} ${cards[currentCardIndex].textColor} border rounded ${cards[currentCardIndex].borderColor} p-6 sm:p-8 flex flex-col justify-center items-start h-[340px] sm:h-[220px] relative overflow-hidden shadow-sm`}
+                style={{
+                  backgroundImage: `url(${cards[currentCardIndex].bgImage})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundBlendMode: 'multiply',
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px'
+                }}
+              >
+                <div 
+                >
+                  {cards[currentCardIndex].icon && (
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-3xl mb-4"
+                    >
+                      {cards[currentCardIndex].icon}
+                    </motion.div>
+                  )}
+                  <motion.h3
+                    variants={cardItemVariants}
+                    initial="initial"
+                    animate="animate"
+                    className="text-xl sm:text-2xl font-bold mb-2"
+                  >
+                    {cards[currentCardIndex].title}
+                  </motion.h3>
+                  {cards[currentCardIndex].subtitle && (
+                    <motion.p
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-base sm:text-lg font-medium mb-4"
+                    >
+                      {cards[currentCardIndex].subtitle}
+                    </motion.p>
+                  )}
+                  {cards[currentCardIndex].description && (
+                    <motion.p
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="text-sm sm:text-base"
+                    >
+                      {cards[currentCardIndex].description}
+                    </motion.p>
+                  )}
+                  {cards[currentCardIndex].cta && (
+                    <motion.div
+                      variants={cardItemVariants}
+                      initial="initial"
+                      animate="animate"
+                      className="mt-4"
+                    >
+                      <Button
+                        className="bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-bold rounded-[2px] shadow-md"
+                      >
+                        {cards[currentCardIndex].cta}
+                      </Button>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
             {/* Card Indicators */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
               {cards.map((_, index) => (
