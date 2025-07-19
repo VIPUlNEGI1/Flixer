@@ -1,137 +1,164 @@
-import React from 'react';
-import { 
-  Cloud, 
-  Code, 
-  LineChart, 
-  Shield, 
-  Smartphone, 
-  Database, 
-  Brain, 
-  Blocks, 
-  LucideIcon 
-} from 'lucide-react';
+"use client";
 
-interface ServiceCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  gradient: string;
-}
+import { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description, gradient }) => (
-  <div className="group relative p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1">
-    {/* Background with gradient */}
-    <div className={`absolute inset-0 rounded-2xl ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+// Category Types
+const categories = [
+  "Most Used",
+  "Travel",
+  "Recharge",
+  "Fashion",
+  "Food",
+  "Electronics",
+];
 
-    {/* Content */}
-    <div className="relative space-y-4">
-      <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <h3 className="text-xl font-semibold text-white">{title}</h3>
-      <p className="text-gray-300 leading-relaxed">{description}</p>
+// Offers Data (Coupons)
+const offers = [
+  {
+    id: 1,
+    tag: "GRABON EXCLUSIVE",
+    brand: "UltaHost",
+    title: "Exclusive Offer - Flat 40% OFF + Extra 10% OFF On All Hosting Plans",
+    logo: "/OIP (1).webp",
+    linkText: "See All Ultahost Offers",
+    category: "Electronics",
+  },
+  {
+    id: 2,
+    tag: "UP TO 85% OFF",
+    brand: "Bummer",
+    title: "Exclusive Offer: Get Up To 70% OFF + Extra 15% OFF On Your Orders",
+    logo: "/OIP (3).webp",
+    linkText: "See All Bummer Offers",
+    category: "Fashion",
+  },
+  {
+    id: 3,
+    tag: "GRABON EXCLUSIVE",
+    brand: "FlixBus",
+    title: "✨ Enjoy Bus Journey & Get Flat Rs 100 Discount On Bookings🚌",
+    logo: "/OIP (2).webp",
+    linkText: "See All FlixBus Offers",
+    category: "Travel",
+  },
+  {
+    id: 4,
+    tag: "Rs.400 CASHBACK",
+    brand: "Mamaearth",
+    title: "Mamaearth Special Offer - Flat Rs 400 Cashback | All Users",
+    logo: "/OIP (1).webp",
+    linkText: "See All Mamaearth Offers",
+    category: "Food",
+  },
+  {
+    id: 5,
+    tag: "🔥 Unmissable 80% Off!",
+    brand: "Healthkart",
+    title: "Healthkart 💪 Sitewide Products - Up To 70% OFF + Extra 10% OFF😍",
+    logo: "/voyager-blog-2.webp",
+    linkText: "See All Healthkart Offers",
+    category: "Food",
+  },
+  {
+    id: 6,
+    tag: "Make Memories In The U.S.",
+    brand: "Etihad Airways",
+    title:
+      "Etihad US Customs Clearance Sale: Fastest & Simplest Way to Travel To U.S. Immigration In Abudhabi",
+    logo: "/OIP (3).webp",
+    linkText: "See All Etihad Airways Offers",
+    category: "Travel",
+  },
+];
 
-      {/* Hover arrow */}
-      <div className="flex items-center gap-2 text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        Learn More 
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-          <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
-    </div>
-  </div>
-);
+export default function OffersSection() {
+  const [selectedCategory, setSelectedCategory] = useState("Most Used");
 
-const ServicesSection: React.FC = () => {
-  const services: ServiceCardProps[] = [
-    {
-      icon: Cloud,
-      title: "Cloud Solutions",
-      description: "Optimize your business with scalable cloud infrastructure, migration services, and cloud-native development.",
-      gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
-    },
-    {
-      icon: Code,
-      title: "Web Development",
-      description: "Custom web applications and platforms built with modern technologies and best practices.",
-      gradient: "bg-gradient-to-br from-violet-600/20 to-purple-600/20"
-    },
-    {
-      icon: LineChart,
-      title: "Digital Strategy",
-      description: "Data-driven strategies to enhance your digital presence and achieve business objectives.",
-      gradient: "bg-gradient-to-br from-green-600/20 to-emerald-600/20"
-    },
-    {
-      icon: Shield,
-      title: "Cybersecurity",
-      description: "Protect your digital assets with comprehensive security solutions and compliance measures.",
-      gradient: "bg-gradient-to-br from-red-600/20 to-orange-600/20"
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile Solutions",
-      description: "Native and cross-platform mobile applications that deliver exceptional user experiences.",
-      gradient: "bg-gradient-to-br from-pink-600/20 to-rose-600/20"
-    },
-    {
-      icon: Database,
-      title: "Data Analytics",
-      description: "Transform raw data into actionable insights with advanced analytics and visualization.",
-      gradient: "bg-gradient-to-br from-yellow-600/20 to-amber-600/20"
-    },
-    {
-      icon: Brain,
-      title: "AI Solutions",
-      description: "Leverage artificial intelligence and machine learning to automate and optimize processes.",
-      gradient: "bg-gradient-to-br from-indigo-600/20 to-blue-600/20"
-    },
-    {
-      icon: Blocks,
-      title: "DevOps Services",
-      description: "Streamline development and operations with automated workflows and continuous integration.",
-      gradient: "bg-gradient-to-br from-teal-600/20 to-green-600/20"
-    }
-  ];
+  const filteredOffers =
+    selectedCategory === "Most Used"
+      ? offers
+      : offers.filter((offer) => offer.category === selectedCategory);
 
   return (
-    <div className="relative py-24 bg-gray-900">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-[500px] h-[500px] -top-20 -right-20 bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-3xl rounded-full"></div>
-        <div className="absolute w-[400px] h-[400px] -bottom-20 -left-20 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 blur-3xl rounded-full"></div>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Comprehensive Services for Your Digital Success
-          </h2>
-          <p className="text-xl text-gray-300">
-            Transform your business with our expert services tailored to meet your unique needs and drive innovation.
-          </p>
-        </div>
-
-        {/* Services grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
+    <div className="flex flex-col items-center py-10 bg-[#f3f7fa]">
+      <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        Today's Top Coupons & Offers
+      </h2>
+      <div className="w-full max-w-7xl flex gap-6 mt-6">
+        {/* Category Sidebar */}
+        <div className="w-1/5 bg-white rounded-lg shadow p-4">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg w-full text-left ${
+                selectedCategory === cat
+                  ? "bg-green-100 text-green-700 font-semibold"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              <span className="w-5 h-5 rounded-full bg-gray-200" />
+              {cat}
+            </button>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <button className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold hover:bg-white/20 transition-all">
-            View All Services
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+        {/* Offers Content */}
+        <div className="w-4/5">
+          {/* Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-lg overflow-hidden mb-6"
+          >
+            <Image
+              src="/banner-1752733175901.jpg"
+              alt="Uber Ad"
+              width={1200}
+              height={200}
+              className="rounded-lg object-cover w-full h-48"
+            />
+          </motion.div>
+
+          {/* Coupons Grid */}
+          <div className="grid grid-cols-3 gap-4">
+            {filteredOffers.map((offer) => (
+              <motion.div
+                key={offer.id}
+                whileHover={{ scale: 1.02 }}
+                className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
+              >
+                <div className="text-xs font-bold text-gray-500 mb-1">{offer.tag}</div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Image
+                    src={offer.logo}
+                    alt={offer.brand}
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                  <span className="text-sm font-semibold">{offer.brand}</span>
+                </div>
+                <p className="text-sm text-gray-700 mb-2">{offer.title}</p>
+                <button className="text-blue-600 text-sm flex items-center gap-1">
+                  {offer.linkText} <ChevronRight size={16} />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Show More */}
+          <div className="flex justify-center mt-6">
+            <button className="bg-white px-6 py-2 rounded-full border border-gray-300 hover:bg-gray-100">
+              Show More
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default ServicesSection;
+}

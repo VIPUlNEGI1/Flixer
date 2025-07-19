@@ -1,412 +1,129 @@
-"use client";
+'use client'
 
-import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Calendar, X, ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import { motion } from 'framer-motion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
-interface Tour {
-  id: string;
-  title: string;
-  duration: string;
-  route: string;
-  originalPrice: number;
-  discountedPrice: number;
-  image: string;
-  category: string[];
-  isBestSeller?: boolean;
-  uptoDiscount?: string;
+type Offer = {
+  id: number
+  image: string
+  title: string
+  description: string
+  tag?: string
 }
 
-const tours: Tour[] = [
+const offers: Offer[] = [
   {
-    id: "1",
-    title: "Bali Community Trip",
-    duration: "7 Days",
-    route: "Ngurah Rai Intl Airport to Ngurah Rai Intl Airport",
-    originalPrice: 41000,
-    discountedPrice: 38000,
-    image: "/placeholder.svg",
-    category: ["International Group Trips", "Best Sellers"],
-    uptoDiscount: "Upto ₹ 3,000 OFF",
+    id: 1,
+    image: '/OIP (1).webp',
+    title: 'RAKSHA BANDHAN SALE',
+    description: 'Raksha Bandhan Sale - Up To 50% OFF + Extra 15% OFF',
+    tag: 'EXCLUSIVE',
   },
   {
-    id: "2",
-    title: "All Girls Ladakh Trip",
-    duration: "11 Days",
-    route: "Delhi to Delhi",
-    originalPrice: 36500,
-    discountedPrice: 34500,
-    image: "/placeholder.svg",
-    category: ["All Girls Trips", "Ladakh"],
-    uptoDiscount: "Upto ₹ 5,000 OFF",
+    id: 2,
+    image: '/OIP (2).webp',
+    title: 'DOMAIN EXCLUSIVE',
+    description: 'Get Domain 1st Year Only at Rs 89*',
   },
   {
-    id: "3",
-    title: "Leh to Leh Bike Trip with Hanle Umling La Tso Moriri",
-    duration: "9 Days",
-    route: "Leh to Leh",
-    originalPrice: 34000,
-    discountedPrice: 31500,
-    image: "/placeholder.svg",
-    category: ["Ladakh", "Best Sellers"],
-    isBestSeller: true,
-    uptoDiscount: "Upto ₹ 2,500 OFF",
+    id: 3,
+    image: '/OIP (3).webp',
+    title: 'Up To 97% OFF',
+    description: 'Udemy Coupon: Save Up to 97% on Best-Selling Courses!',
   },
   {
-    id: "4",
-    title: "All Girls Road Trip to Spiti Valley",
-    duration: "9 Days",
-    route: "Delhi to Delhi",
-    originalPrice: 27000,
-    discountedPrice: 25000,
-    image: "/placeholder.svg",
-    category: ["All Girls Trips", "Spiti"],
-    uptoDiscount: "Upto ₹ 2,500 OFF",
+    id: 4,
+    image: '/OIP (5).webp',
+    title: 'FLIGHT DISCOUNTS',
+    description: 'Book your flight tickets with up to ₹1,200 OFF',
+    tag: 'LIMITED',
   },
   {
-    id: "5",
-    title: "Himalayan Trek Adventure",
-    duration: "12 Days",
-    route: "Dehradun to Dehradun",
-    originalPrice: 28000,
-    discountedPrice: 25500,
-    image: "/placeholder.svg",
-    category: ["Himalayan Treks", "Upcoming Trips"],
+    id: 5,
+    image: '/OIP (7).webp',
+    title: 'MEGA SALE',
+    description: 'Big Billion Days: Get gadgets & appliances at half price!',
+    tag: 'HOT',
   },
-  {
-    id: "6",
-    title: "Weekend Getaway to Goa",
-    duration: "3 Days",
-    route: "Mumbai to Mumbai",
-    originalPrice: 15000,
-    discountedPrice: 12500,
-    image: "/placeholder.svg",
-    category: ["Weekend Getaways", "Domestic Customize"],
-  },
-];
+]
 
-const filterOptions = [
-  { id: "independence-day", label: "Independence Day", defaultChecked: true },
-  { id: "ladakh", label: "Ladakh" },
-  { id: "spiti", label: "Spiti" },
-  { id: "himalayan-treks", label: "Himalayan Treks" },
-  { id: "international-group-trips", label: "International Group Trips" },
-  { id: "backpacking-trips", label: "Backpacking Trips" },
-  { id: "international-customize", label: "International Customize" },
-  { id: "upcoming-trips", label: "Upcoming Trips" },
-  { id: "domestic-customize", label: "Domestic Customize" },
-  { id: "best-sellers", label: "Best Sellers" },
-  { id: "all-girls-trips", label: "All Girls Trips" },
-  { id: "new-launches", label: "New Launches" },
-  { id: "weekend-getaways", label: "Weekend Getaways" },
-];
-
-export default function ToursTravel() {
-  const searchParams = useSearchParams();
-  const initialFilter = searchParams.get("filter") || "independence-day";
-  const searchQuery = searchParams.get("search") || "";
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([initialFilter]);
-  const [isPaused, setIsPaused] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    console.log("Selected Filters:", selectedFilters); // Debug filters
-    console.log("Search Query:", searchQuery); // Debug search query
-    const startAutoScroll = () => {
-      if (scrollContainerRef.current) {
-        scrollIntervalRef.current = setInterval(() => {
-          if (!isPaused && scrollContainerRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-            const maxScroll = scrollWidth - clientWidth;
-
-            if (scrollLeft >= maxScroll - 10) {
-              scrollContainerRef.current.scrollTo({
-                left: 0,
-                behavior: "smooth",
-              });
-            } else {
-              scrollContainerRef.current.scrollBy({
-                left: 350,
-                behavior: "smooth",
-              });
-            }
-          }
-        }, 3000);
-      }
-    };
-
-    startAutoScroll();
-
-    return () => {
-      if (scrollIntervalRef.current) {
-        clearInterval(scrollIntervalRef.current);
-      }
-    };
-  }, [isPaused]);
-
-  const handleFilterChange = (filterId: string, checked: boolean) => {
-    setSelectedFilters((prev) =>
-      checked ? [...prev, filterId] : prev.filter((id) => id !== filterId)
-    );
-  };
-
-  const clearFilters = () => {
-    setSelectedFilters([]);
-  };
-
-  const filteredTours = tours.filter((tour) => {
-    const matchesFilter =
-      selectedFilters.length === 0 ||
-      selectedFilters.includes("independence-day") ||
-      selectedFilters.some((filter) => {
-        const filterLabel = filterOptions.find((opt) => opt.id === filter)?.label;
-        return filterLabel && tour.category.includes(filterLabel);
-      });
-    const matchesSearch = searchQuery
-      ? tour.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tour.route.toLowerCase().includes(searchQuery.toLowerCase())
-      : true;
-    return matchesFilter && matchesSearch;
-  });
-
-  useEffect(() => {
-    console.log("Filtered Tours:", filteredTours); // Debug filtered tours
-  }, [filteredTours]);
-
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: -400,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: 400,
-        behavior: "smooth",
-      });
-    }
-  };
-
+const PopularOffersSlider = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <Card className="bg-white shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">Filter Tours</h2>
-                  <Button
-                    variant="ghost"
-                    className="text-blue-600 text-sm p-0 hover:underline"
-                  >
-                    View All →
-                  </Button>
-                </div>
+    <section className="py-10 px-6 md:px-10 lg:px-40 bg-gray-50">
+      <motion.h2
+        className="text-2xl font-bold mb-6 flex items-center gap-2"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Popular Offers of the Day
+        <span className="h-1 w-8 bg-green-500 inline-block rounded"></span>
+      </motion.h2>
 
-                <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-                  {filterOptions.map((option) => (
-                    <div key={option.id} className="flex items-center space-x-3">
-                      <Checkbox
-                        id={option.id}
-                        checked={selectedFilters.includes(option.id)}
-                        onCheckedChange={(checked) =>
-                          handleFilterChange(option.id, checked as boolean)
-                        }
-                        className="data-[state=checked]:bg-blue-600"
-                      />
-                      <label
-                        htmlFor={option.id}
-                        className="text-sm text-gray-700 cursor-pointer hover:text-gray-900"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
-                {selectedFilters.length > 0 && (
-                  <Button
-                    variant="outline"
-                    className="mt-6 w-full bg-transparent border-gray-300 hover:bg-gray-100  "
-                    onClick={clearFilters}
-                  >
-                    Clear All
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Tours Section */}
-          <div className="lg:col-span-3">
-            {/* Filter Summary */}
-            {selectedFilters.length > 0 && (
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-2">
-                  {selectedFilters.map((filter) => {
-                    const filterLabel = filterOptions.find((opt) => opt.id === filter)?.label;
-                    return filterLabel ? (
-                      <Badge
-                        key={filter}
-                        className="bg-blue-100 text-blue-800 hover:bg-blue-200"
-                      >
-                        {filterLabel}
-                        <X
-                          className="w-3 h-3 ml-1 cursor-pointer"
-                          onClick={() => handleFilterChange(filter, false)}
-                        />
-                      </Badge>
-                    ) : null;
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* Holy Trails Banner */}
-            <div className="mb-8">
-              <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 rounded-xl p-6 text-center relative overflow-hidden shadow-lg">
-                <div className="relative z-10">
-                  <h2 className="text-3xl font-extrabold text-white mb-2 drop-shadow-md bg">
-                    HOLY TRAILS
-                  </h2>
-                  <h3 className="text-2xl font-bold text-red-900 mb-4 drop-shadow-md">
-                    HIMALAYAN SOULS
-                  </h3>
-                  <div className="flex flex-wrap justify-center gap-2 mb-4">
-                    <Badge className="bg-blue-700 text-black">CHAR DHAM YATRA</Badge>
-                    <Badge className="bg-blue-700 text-black">TEEN DHAM YATRA</Badge>
-                    <Badge className="bg-blue-700 text-black">DO DHAM</Badge>
-                  </div>
-                  <Button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold">
-                    EXPLORE NOW
-                  </Button>
-                </div>
-                <div className="absolute inset-0 bg-black/20"></div>
-              </div>
-            </div>
-
-            {/* Horizontal Scrolling Tours Section */}
-            <div className="relative">
-              {filteredTours.length > 0 && (
-                <>
-                  <button
-                    onClick={scrollLeft}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 hidden md:block"
-                    aria-label="Scroll left"
-                  >
-                    <ChevronLeft className="w-5 h-5 text-gray-700" />
-                  </button>
-                  <button
-                    onClick={scrollRight}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 hidden md:block"
-                    aria-label="Scroll right"
-                  >
-                    <ChevronRight className="w-5 h-5 text-gray-700" />
-                  </button>
-                </>
-              )}
-
-              <div
-                ref={scrollContainerRef}
-                className="flex overflow-x-auto gap-6 pb-4 scrollbar-hide snap-x snap-mandatory"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-              >
-                {filteredTours.map((tour) => (
-                  <div key={tour.id} className="flex-shrink-0 w-[350px] snap-start">
-                    <Card className="overflow-hidden bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="relative aspect-video">
-                        <Image
-                          src={tour.image}
-                          alt={tour.title}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/40"></div>
-                        <Badge className="absolute top-4 right-4 bg-black/70 text-black">
-                          <Calendar className="w-3 h-3 mr-1 inline-block" />
-                          {tour.duration}
-                        </Badge>
-                        {tour.isBestSeller && (
-                          <Badge className="absolute top-4 left-4 bg-orange-500 text-white font-medium">
-                            Best Seller
-                          </Badge>
-                        )}
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <h3 className="text-white font-bold text-lg mb-1 drop-shadow-md">
-                            {tour.title}
-                          </h3>
-                          <div className="flex items-center text-white/80 text-sm drop-shadow-md">
-                            <MapPin className="w-3 h-3 mr-1" />
-                            {tour.route}
-                          </div>
-                        </div>
-                      </div>
-                      <CardContent className="p-5">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2">
-                            <span className="text-gray-500 line-through text-base">
-                              ₹{tour.originalPrice.toLocaleString()}
-                            </span>
-                            <span className="text-2xl font-bold text-gray-900">
-                              ₹{tour.discountedPrice.toLocaleString()}
-                            </span>
-                          </div>
-                        </div>
-                        {tour.uptoDiscount && (
-                          <p className="text-green-600 text-sm font-semibold mb-4">
-                            {tour.uptoDiscount}
-                          </p>
-                        )}
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
-                          More Details
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {filteredTours.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-600 text-lg font-medium">
-                  No tours found for the selected filters or search query.
-                </p>
-                <Button
-                  variant="outline"
-                  className="mt-4 bg-transparent border-gray-300 hover:bg-gray-100"
-                  onClick={clearFilters}
-                >
-                  Clear Filters
-                </Button>
-              </div>
-            )}
-          </div>
+      <div className="relative">
+        {/* Custom Navigation */}
+        <div className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer">
+          <ChevronLeft className="h-10 w-10 text-gray-600 bg-white rounded-full shadow p-2 hover:bg-gray-100" />
         </div>
-      </div>
+        <div className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 cursor-pointer">
+          <ChevronRight className="h-10 w-10 text-gray-600 bg-white rounded-full shadow p-2 hover:bg-gray-100" />
+        </div>
 
-      <style jsx global>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
-    </div>
-  );
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={20}
+          slidesPerView={1}
+          navigation={{
+            nextEl: '.swiper-button-next-custom',
+            prevEl: '.swiper-button-prev-custom',
+          }}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+        >
+          {offers.map((offer) => (
+            <SwiperSlide key={offer.id}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-lg shadow-md overflow-hidden border hover:shadow-lg"
+              >
+                <div className="relative w-full h-48">
+                  <Image
+                    src={offer.image}
+                    alt={offer.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    priority
+                  />
+                </div>
+
+                <div className="p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-bold text-sm">{offer.title}</h3>
+                    {offer.tag && (
+                      <span className="text-xs px-2 py-0.5 bg-green-500 text-white rounded">
+                        {offer.tag}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600">{offer.description}</p>
+                </div>
+              </motion.div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  )
 }
+
+export default PopularOffersSlider

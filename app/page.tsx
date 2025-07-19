@@ -10,17 +10,17 @@ import TrustedBrand from "@/components/TrustedBrands";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-[#fffcfc]">
       <HeroSection/>
       
       
       
       <Suspense fallback={<div>Loading...</div>}>
+      <ServicesSection/>
       <TrustedBrand/>
     </Suspense>
-      {/* <ServicesSection/>
       <IndustriesSection/>
-      <WhyChooseUsSection/>
+      {/* <WhyChooseUsSection/>
       <ConsultingProcessSection/>
       <TestimonialsSection/> */}
     </div>

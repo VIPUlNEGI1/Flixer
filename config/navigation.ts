@@ -1,23 +1,14 @@
-import {
-  Home,
-  MapPin,
-  Calendar,
-  Backpack,
-  Mountain,
-  Camera,
-  PhoneCall,
-  Plane,
-  Car,
-  Hotel,
-  Users,
-  Star,
-  Heart,
-  Compass,
-  Globe,
-  TreePine,
-  Waves,
-  Building,
-  UserCheck,
+import { 
+  Home, 
+  Backpack, 
+  PhoneCall, 
+  Heart, 
+  Users, 
+  MapPin, 
+  Calendar, 
+  Mountain, 
+  Camera, 
+  Compass 
 } from "lucide-react"
 
 export const navigationConfig = {
@@ -29,75 +20,10 @@ export const navigationConfig = {
       icon: Home,
     },
     {
-      id: "destinations",
-      label: "Destinations",
-      href: "/destinations",
-      icon: MapPin,
-      subMenu: [
-        { id: "india", label: "India", href: "/destinations/india", icon: Globe },
-        { id: "international", label: "International", href: "/destinations/international", icon: Plane },
-        { id: "himalayan", label: "Himalayan Regions", href: "/destinations/himalayan", icon: Mountain },
-        { id: "beaches", label: "Beach Destinations", href: "/destinations/beaches", icon: Waves },
-        { id: "hill-stations", label: "Hill Stations", href: "/destinations/hill-stations", icon: TreePine },
-        { id: "heritage", label: "Heritage Sites", href: "/destinations/heritage", icon: Building },
-      ],
-    },
-    {
-      id: "trips",
-      label: "Trip ",
-      href: "/trips",
+      id: "Categoryes",
+      label: "Category",
+      href: "/Categoryes",
       icon: Backpack,
-      subMenu: [
-        { id: "weekend", label: "Weekend Getaways", href: "/trips/weekend", icon: Calendar },
-        { id: "long-duration", label: "Long Duration", href: "/trips/long-duration", icon: Calendar },
-        { id: "adventure", label: "Adventure Trips", href: "/trips/adventure", icon: Mountain },
-        { id: "cultural", label: "Cultural Tours", href: "/trips/cultural", icon: Camera },
-        { id: "trekking", label: "Trekking & Hiking", href: "/trips/trekking", icon: Compass },
-        { id: "bike-tours", label: "Bike Tours", href: "/trips/bike-tours", icon: Car },
-        { id: "group", label: "Group Travel", href: "/trips/group", icon: Users },
-        { id: "solo", label: "Solo Travel", href: "/trips/solo", icon: UserCheck },
-      ],
-    },
-    {
-      id: "services",
-      label: "Services",
-      href: "/services",
-      icon: Star,
-      subMenu: [
-        { id: "booking", label: "Trip Booking", href: "/services/booking", icon: Calendar },
-        { id: "accommodation", label: "Accommodation", href: "/services/accommodation", icon: Hotel },
-        { id: "transportation", label: "Transportation", href: "/services/transportation", icon: Car },
-        { id: "travel-insurance", label: "Travel Insurance", href: "/services/insurance", icon: Heart },
-        { id: "visa-assistance", label: "Visa Assistance", href: "/services/visa", icon: Plane },
-        { id: "custom-packages", label: "Custom Packages", href: "/services/custom", icon: Star },
-      ],
-    },
-    {
-      id: "travel-styles",
-      label: "Travel ",
-      href: "/travel-styles",
-      icon: Heart,
-      subMenu: [
-        { id: "luxury", label: "Luxury Travel", href: "/travel-styles/luxury" },
-        { id: "budget", label: "Budget Travel", href: "/travel-styles/budget" },
-        { id: "family", label: "Family Travel", href: "/travel-styles/family" },
-        { id: "honeymoon", label: "Honeymoon", href: "/travel-styles/honeymoon" },
-        { id: "corporate", label: "Corporate Travel", href: "/travel-styles/corporate" },
-        { id: "student", label: "Student Travel", href: "/travel-styles/student" },
-      ],
-    },
-    {
-      id: "community",
-      label: "Community",
-      href: "/community",
-      icon: Users,
-      subMenu: [
-        { id: "travel-stories", label: "Travel Stories", href: "/community/stories" },
-        { id: "reviews", label: "Reviews", href: "/community/reviews" },
-        { id: "travel-tips", label: "Travel Tips", href: "/community/tips" },
-        { id: "photo-gallery", label: "Photo Gallery", href: "/community/gallery" },
-        { id: "travel-buddies", label: "Find Travel Buddies", href: "/community/buddies" },
-      ],
     },
   ],
   contactButton: {
@@ -108,34 +34,33 @@ export const navigationConfig = {
   },
   specialButtons: [
     {
-      id: "plan-trip",
-      label: "Plan My Trip",
-      href: "/plan-trip",
-      icon: Compass,
-      variant: "primary",
+      id: "Login",
+      label: "Login",
+      href: "/Auth/Regestrationpage",
+      icon: Heart,
     },
     {
-      id: "emergency",
-      label: "24/7 Support",
-      href: "/support",
-      icon: PhoneCall,
-      variant: "secondary",
-    },
+      id: "Profile",
+      label: "MapPin",
+      href: "/Categoryes",
+      icon: Users,
+    }
   ],
-}
+  quickDestinations: [
+    { id: "ladakh", label: "Ladakh", href: "/destinations/ladakh" },
+    { id: "spiti", label: "Spiti Valley", href: "/destinations/spiti" },
+    { id: "bhutan", label: "Bhutan", href: "/destinations/bhutan" },
+    { id: "nepal", label: "Nepal", href: "/destinations/nepal" },
+    { id: "himachal", label: "Himachal Pradesh", href: "/destinations/himachal" },
+    { id: "uttarakhand", label: "Uttarakhand", href: "/destinations/uttarakhand" },
+  ],
+  popularCategories: [
+    { id: "weekend-trips", label: "Weekend Trips", href: "/trips/weekend", icon: Calendar },
+    { id: "adventure", label: "Adventure", href: "/trips/adventure", icon: Mountain },
+    { id: "cultural", label: "Cultural Tours", href: "/trips/cultural", icon: Camera },
+    { id: "trekking", label: "Trekking", href: "/trips/trekking", icon: Compass },
+  ],
+};
 
-export const quickDestinations = [
-  { id: "ladakh", label: "Ladakh", href: "/destinations/ladakh" },
-  { id: "spiti", label: "Spiti Valley", href: "/destinations/spiti" },
-  { id: "bhutan", label: "Bhutan", href: "/destinations/bhutan" },
-  { id: "nepal", label: "Nepal", href: "/destinations/nepal" },
-  { id: "himachal", label: "Himachal Pradesh", href: "/destinations/himachal" },
-  { id: "uttarakhand", label: "Uttarakhand", href: "/destinations/uttarakhand" },
-]
-
-export const popularCategories = [
-  { id: "weekend-trips", label: "Weekend Trips", href: "/trips/weekend", icon: Calendar },
-  { id: "adventure", label: "Adventure", href: "/trips/adventure", icon: Mountain },
-  { id: "cultural", label: "Cultural Tours", href: "/trips/cultural", icon: Camera },
-  { id: "trekking", label: "Trekking", href: "/trips/trekking", icon: Compass },
-]
+// Explicitly export the properties for direct access
+export const { quickDestinations, popularCategories } = navigationConfig;

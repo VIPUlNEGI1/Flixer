@@ -33,7 +33,6 @@ export default function NavLink({ href, children, isActive, hasSubmenu, onClick 
         />
       )}
 
-      {/* Hover effect */}
       <div
         className="absolute inset-0 bg-gradient-to-r from-green-50 to-green-100 
                    rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"

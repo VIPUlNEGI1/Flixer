@@ -1,137 +1,138 @@
-import React from 'react';
-import { 
-  Store, 
-  Stethoscope, 
-  Plane, 
-  Building, 
-  Factory, 
-  PieChart, 
-  Book, 
-  Landmark,
-  LucideIcon
-} from 'lucide-react';
+'use client'
 
-interface IndustryCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  gradient: string;
-}
+import { motion } from 'framer-motion'
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
-const IndustryCard: React.FC<IndustryCardProps> = ({ icon: Icon, title, description, gradient }) => (
-  <div className="group relative p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-    {/* Background gradient */}
-    <div className={`absolute inset-0 rounded-2xl ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-    
-    {/* Content */}
-    <div className="relative space-y-4">
-      <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <h3 className="text-xl font-semibold text-white">{title}</h3>
-      <p className="text-gray-300 leading-relaxed">{description}</p>
-      
-      {/* Hover reveal */}
-      <div className="flex items-center gap-2 text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        Explore Industry 
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-          <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-);
-
-const IndustriesSection: React.FC = () => {
-  const industries: IndustryCardProps[] = [
+export default function TrendingOffers() {
+  const deals = [
     {
-      icon: Store,
-      title: "Retail",
-      description: "Digital transformation strategies for e-commerce and omnichannel retail experiences.",
-      gradient: "bg-gradient-to-br from-blue-600/20 to-cyan-600/20"
+      id: 1,
+      timeLeft: "14 S QT",
+      title: "XYXX Crew IntelliFresh Cotton Stretch Trunks",
+      price: "Rs. 200",
+      originalPrice: "Rs 999",
+      image: "/OIP (2).webp" // Replace with your image path
     },
     {
-      icon: Stethoscope,
-      title: "Healthcare",
-      description: "Innovative solutions for digital health, telemedicine, and healthcare technology.",
-      gradient: "bg-gradient-to-br from-green-600/20 to-emerald-600/20"
+      id: 2,
+      timeLeft: "B3 S QT",
+      title: "Flipkart Aroma Flip Bluetooth Speaker",
+      price: "Rs. 589",
+      originalPrice: "Rs 3499",
+      image: "/OIP (7).webp" // Replace with your image path
     },
     {
-      icon: Plane,
-      title: "Travel & Hospitality",
-      description: "Technology solutions to enhance customer experience and operational efficiency.",
-      gradient: "bg-gradient-to-br from-indigo-600/20 to-purple-600/20"
+      id: 3,
+      timeLeft: "23 S QT",
+      title: "Amazon pTron Bassbuds Astra In-Ear TWS Earbuds",
+      price: "Rs. 749",
+      originalPrice: "Rs 2899",
+      image: "/OIP.webp" // Replace with your image path
     },
     {
-      icon: Building,
-      title: "Finance & Banking",
-      description: "Digital banking, fintech innovations, and cybersecurity solutions.",
-      gradient: "bg-gradient-to-br from-yellow-600/20 to-amber-600/20"
-    },
-    {
-      icon: Factory,
-      title: "Manufacturing",
-      description: "Industry 4.0 technologies, IoT, and digital manufacturing strategies.",
-      gradient: "bg-gradient-to-br from-red-600/20 to-orange-600/20"
-    },
-    {
-      icon: PieChart,
-      title: "Media & Entertainment",
-      description: "Digital content strategies, streaming technologies, and audience engagement.",
-      gradient: "bg-gradient-to-br from-pink-600/20 to-rose-600/20"
-    },
-    {
-      icon: Book,
-      title: "Education",
-      description: "E-learning platforms, digital education technologies, and learning management.",
-      gradient: "bg-gradient-to-br from-teal-600/20 to-green-600/20"
-    },
-    {
-      icon: Landmark,
-      title: "Government & Public Sector",
-      description: "Digital governance, citizen services, and technology modernization.",
-      gradient: "bg-gradient-to-br from-violet-600/20 to-blue-600/20"
+      id: 4,
+      timeLeft: "20 S QT",
+      title: "AJIO TEAMSPIRIT Women Graphic Print Boxy F1 Crew-Neck T-Shirt",
+      price: "Rs. 150",
+      originalPrice: "Rs 499",
+      image: "/d17aec155219311.635044eb97da5.jpg" // Replace with your image path
     }
-  ];
+  ]
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  }
 
   return (
-    <div className="relative py-24 bg-gray-900">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-[500px] h-[500px] -top-20 -right-20 bg-gradient-to-r from-purple-500/30 to-blue-500/30 blur-3xl rounded-full"></div>
-        <div className="absolute w-[400px] h-[400px] -bottom-20 -left-20 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 blur-3xl rounded-full"></div>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Industries We Transform
-          </h2>
-          <p className="text-xl text-gray-300">
-            Our expertise spans across diverse industries, delivering cutting-edge digital solutions tailored to unique business challenges.
-          </p>
+    <div className="max-w-6xl mx-auto p-4 bg-white rounded-lg shadow-sm">
+      {/* Skyscanner Offer with Banner */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8 rounded-lg overflow-hidden relative h-48"
+      >
+        <Image
+          src="/banner-1752733175901.jpg" // Replace with your banner image path
+          alt="Skyscanner Offer"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 text-white">
+          <h2 className="text-2xl font-bold mb-2">Skyscanner</h2>
+          <p className="text-lg mb-4">Save 30% on average when comparing flights.</p>
+          <Button 
+            variant="outline" 
+            className="bg-white text-blue-600 hover:bg-blue-50 font-medium w-fit"
+          >
+            Explore now
+          </Button>
         </div>
+      </motion.div>
 
-        {/* Industries grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {industries.map((industry, index) => (
-            <IndustryCard key={index} {...industry} />
+      {/* Deals of the Day */}
+      <div className="mb-4">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">Deals Of The Day</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {deals.map((deal, index) => (
+            <motion.div
+              key={deal.id}
+              custom={index}
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+              className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+            >
+              <div className="relative h-40 mb-3 rounded-md overflow-hidden">
+                <Image
+                  src={deal.image}
+                  alt={deal.title}
+                  fill
+                  className="object-cover"
+                />
+                <span className="absolute top-2 left-2 text-xs font-medium bg-red-100 text-red-800 px-2 py-1 rounded z-10">
+                  {deal.timeLeft}
+                </span>
+              </div>
+              <div className="flex justify-between items-start">
+                <div className="text-right ml-auto">
+                  <span className="text-sm line-through text-gray-500 mr-2">
+                    {deal.originalPrice}
+                  </span>
+                  <span className="text-lg font-bold text-gray-900">
+                    {deal.price}
+                  </span>
+                </div>
+              </div>
+              <h4 className="text-base font-medium mt-2 text-gray-800 line-clamp-2">
+                {deal.title}
+              </h4>
+            </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <button className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold hover:bg-white/20 transition-all">
-            Explore More Industries
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-        </div>
       </div>
-    </div>
-  );
-};
 
-export default IndustriesSection;
+      {/* View More Button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="text-center mt-6"
+      >
+        <Button variant="ghost" className="text-blue-600 hover:bg-blue-50">
+          View More Deals
+        </Button>
+      </motion.div>
+    </div>
+  )
+}

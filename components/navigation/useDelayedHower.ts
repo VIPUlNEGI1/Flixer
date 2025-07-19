@@ -1,21 +1,21 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react"
 
-export function useDelayedHover(delay: number) {
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+export const useDelayedHover = (delay: number) => {
+  const timeoutRef = useRef<number | null>(null)
 
-  const handleMouseEnter = (callback: () => void) => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
+  const handleMouseEnter = useCallback((callback: () => void) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
-    timerRef.current = setTimeout(callback, delay);
-  };
+    timeoutRef.current = window.setTimeout(callback, delay)
+  }, [delay])
 
-  const handleMouseLeave = (callback: () => void) => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
+  const handleMouseLeave = useCallback((callback: () => void) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
-    timerRef.current = setTimeout(callback, delay);
-  };
+    callback()
+  }, [])
 
-  return { handleMouseEnter, handleMouseLeave };
+  return { handleMouseEnter, handleMouseLeave }
 }
