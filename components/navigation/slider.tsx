@@ -1,75 +1,140 @@
-"use client"
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { X, Home, BookOpen, Mail, LogIn, Phone, Menu } from "lucide-react"
+import Link from "next/link"
+import SearchBar from "./SearchBar"
+import Logo from "../lib/Logo"
 
-const slides = [
-  {
-    id: 1,
-    image: "https://via.placeholder.com/1200x400?text=Slide+1",
-    title: "Explore the World",
-    description: "Discover amazing destinations with us.",
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/1200x400?text=Slide+2",
-    title: "Adventure Awaits",
-    description: "Get ready for thrilling experiences.",
-  },
-  {
-    id: 3,
-    image: "https://via.placeholder.com/1200x400?text=Slide+3",
-    title: "Travel in Style",
-    description: "Luxury travel made simple.",
-  },
-]
+interface MenuItem {
+  id: string
+  label: string
+  href: string
+  icon: React.ComponentType<{ className?: string }>
+}
 
-export default function Slider() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+export default function SidebarMenu() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 5000)
-    return () => clearInterval(interval)
+    const handleScroll = () => setIsScrolled(window.scrollY > 10)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const menuItems: MenuItem[] = [
+    { id: 'home', label: 'Home', href: '/', icon: Home },
+    { id: 'categories', label: 'Categories', href: '/categories', icon: BookOpen },
+    { id: 'contact', label: 'Contact', href: '/contact', icon: Mail },
+  ]
+
+  const toggleMenu = () => setIsOpen(!isOpen)
+
   return (
-    <div className="relative w-full overflow-hidden bg-black">
-      <div
-        className="flex transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+    <>
+      {/* Mobile Menu Button */}
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={toggleMenu}
+        className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-primary hover:bg-primary/10 transition-all"
+        aria-label="Open menu"
       >
-        {slides.map((slide) => (
-          <div key={slide.id} className="w-full flex-shrink-0 relative">
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-64 object-cover opacity-70"
+       
+        <Menu className="w-6 h-6" />
+      </motion.button>
+
+      {/* Sidebar Overlay and Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+              onClick={toggleMenu}
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h2 className="text-2xl md:text-3xl font-bold mb-2">{slide.title}</h2>
-                <p className="text-sm md:text-base">{slide.description}</p>
+
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed left-0 top-0 bottom-0 w-64 bg-white z-50 shadow-xl flex flex-col"
+            >
+              {/* Header */}
+              <div className={`p-4 border-b ${isScrolled ? 'border-gray-200' : 'border-transparent'}`}>
+                <div className="flex justify-between items-center">
+                  <Logo />
+                  <button
+                    onClick={toggleMenu}
+                    className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5 text-gray-600" />
+                  </button>
+                </div>
               </div>
-            </div>
-            <div
-              className="absolute inset-0 bg-green-600 bg-opacity-0 hover:bg-opacity-30 transition-all duration-300"
-              onClick={() => setCurrentSlide((currentSlide + 1) % slides.length)}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full ${
-              index === currentSlide ? "bg-green-200" : "bg-gray-400"
-            }`}
-            onClick={() => setCurrentSlide(index)}
-          />
-        ))}
-      </div>
-    </div>
+
+              {/* Search Bar - Always visible */}
+              <div className="p-4 border-b border-gray-200">
+                <SearchBar />
+              </div>
+
+              {/* Main Menu Items */}
+              <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+                {menuItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={toggleMenu}
+                      className="flex items-center p-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+                    >
+                      <item.icon className="w-5 h-5 mr-3 text-gray-500" />
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Sign In Button */}
+              <div className="p-4 border-t border-gray-200">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    href="/login"
+                    onClick={toggleMenu}
+                    className="flex items-center justify-center p-3 rounded-lg font-medium border border-primary text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <LogIn className="w-5 h-5 mr-2" />
+                    Sign In
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Contact Info */}
+              <div className="p-4 border-t border-gray-200 bg-gray-50">
+                <div className="flex items-center space-x-3 p-3 bg-white rounded-lg">
+                  <Phone className="w-5 h-5 text-gray-500" />
+                  <div>
+                    <p className="text-xs text-gray-500">Need help?</p>
+                    <p className="font-medium text-gray-800">+1 (234) 567-890</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

@@ -137,11 +137,11 @@ export default function AdvertisementOffer() {
   }
 
   return (
-    <section className="relative min-h-[400px] w-full bg-gradient-to-r from-gray-50 to-gray-100 overflow-hidden pt-16 mb-0 pb-0">
+    <section className="relative   w-full bg-gradient-to-r from-gray-50 to-gray-100 overflow-hidden pt-16 mb-0 pb-0">
       <div className="container mx-auto h-full flex flex-col lg:flex-row px-4 gap-0 md:gap-0">
         {/* Left Side - Offer Slider */}
         <div 
-          className="w-[700px] h-[200px] sm:h-[260px] relative"
+          className="w-[100%] h-[200px] sm:h-[260px] relative"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -226,98 +226,7 @@ export default function AdvertisementOffer() {
           </div>
         </div>
 
-        {/* Right Side - Professional Card Section */}
-        <div className="w-full lg:w-1/2 h-[200px] sm:h-[260px] relative flex items-center justify-center">
-          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg px-4 sm:px-0 relative">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={cards[currentCardIndex].id}
-                variants={cardContainerVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className={`w-full ${cards[currentCardIndex].bgColor} ${cards[currentCardIndex].textColor} border rounded ${cards[currentCardIndex].borderColor} p-6 sm:p-8 flex flex-col justify-center items-start h-[340px] sm:h-[220px] relative overflow-hidden shadow-sm`}
-                style={{
-                  backgroundImage: `url(${cards[currentCardIndex].bgImage})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundBlendMode: 'multiply',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px'
-                }}
-              >
-                <div 
-                >
-                  {cards[currentCardIndex].icon && (
-                    <motion.div
-                      variants={cardItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      className="text-3xl mb-4"
-                    >
-                      {cards[currentCardIndex].icon}
-                    </motion.div>
-                  )}
-                  <motion.h3
-                    variants={cardItemVariants}
-                    initial="initial"
-                    animate="animate"
-                    className="text-xl sm:text-2xl font-bold mb-2"
-                  >
-                    {cards[currentCardIndex].title}
-                  </motion.h3>
-                  {cards[currentCardIndex].subtitle && (
-                    <motion.p
-                      variants={cardItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      className="text-base sm:text-lg font-medium mb-4"
-                    >
-                      {cards[currentCardIndex].subtitle}
-                    </motion.p>
-                  )}
-                  {cards[currentCardIndex].description && (
-                    <motion.p
-                      variants={cardItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      className="text-sm sm:text-base"
-                    >
-                      {cards[currentCardIndex].description}
-                    </motion.p>
-                  )}
-                  {cards[currentCardIndex].cta && (
-                    <motion.div
-                      variants={cardItemVariants}
-                      initial="initial"
-                      animate="animate"
-                      className="mt-4"
-                    >
-                      <Button
-                        className="bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-bold rounded-[2px] shadow-md"
-                      >
-                        {cards[currentCardIndex].cta}
-                      </Button>
-                    </motion.div>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-            {/* Card Indicators */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-              {cards.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentCardIndex(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    index === currentCardIndex ? 'bg-amber-500 w-5' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   )

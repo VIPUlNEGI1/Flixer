@@ -1,66 +1,52 @@
+// config/navigation.ts
 import { 
   Home, 
   Backpack, 
-  PhoneCall, 
-  Heart, 
-  Users, 
-  MapPin, 
-  Calendar, 
-  Mountain, 
-  Camera, 
-  Compass 
+  User,
+  // Add other icons you need
 } from "lucide-react"
 
 export const navigationConfig = {
   mainNav: [
     {
       id: "home",
-      label: "Home",
-      href: "/",
+      name: "Home",
+      path: "/",
       icon: Home,
     },
     {
-      id: "Categoryes",
-      label: "Category",
-      href: "/Categoryes",
+      id: "categories",
+      name: "Categories",
+      path: "/categories",
       icon: Backpack,
+      subMenu: [
+        // { 
+        //   id: "weekend-trips", 
+        //   name: "Weekend Trips", 
+        //   path: "/trips/weekend",
+        // },
+        // ... other submenu items
+      ]
     },
   ],
-  contactButton: {
-    id: "contact",
-    label: "Contact Us",
-    href: "/contact",
-    icon: PhoneCall,
-  },
-  specialButtons: [
-    {
-      id: "Login",
-      label: "Login",
-      href: "/Auth/Regestrationpage",
-      icon: Heart,
-    },
-    {
-      id: "Profile",
-      label: "MapPin",
-      href: "/Categoryes",
-      icon: Users,
+  authConfig: {
+    loggedOut: [
+      {
+        id: "login",
+        name: "Sign In",
+        path: "/login",
+      },
+      {
+        id: "register",
+        name: "Register",
+        path: "/register",
+      }
+    ],
+    loggedIn: {
+      id: "profile",
+      name: "Profile",
+      path: "/profile",
+      icon: User
     }
-  ],
-  quickDestinations: [
-    { id: "ladakh", label: "Ladakh", href: "/destinations/ladakh" },
-    { id: "spiti", label: "Spiti Valley", href: "/destinations/spiti" },
-    { id: "bhutan", label: "Bhutan", href: "/destinations/bhutan" },
-    { id: "nepal", label: "Nepal", href: "/destinations/nepal" },
-    { id: "himachal", label: "Himachal Pradesh", href: "/destinations/himachal" },
-    { id: "uttarakhand", label: "Uttarakhand", href: "/destinations/uttarakhand" },
-  ],
-  popularCategories: [
-    { id: "weekend-trips", label: "Weekend Trips", href: "/trips/weekend", icon: Calendar },
-    { id: "adventure", label: "Adventure", href: "/trips/adventure", icon: Mountain },
-    { id: "cultural", label: "Cultural Tours", href: "/trips/cultural", icon: Camera },
-    { id: "trekking", label: "Trekking", href: "/trips/trekking", icon: Compass },
-  ],
-};
-
-// Explicitly export the properties for direct access
-export const { quickDestinations, popularCategories } = navigationConfig;
+  }
+}
