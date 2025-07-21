@@ -1,39 +1,41 @@
-'use client';
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import { RegisterForm } from '@/app/register/register';
-import { LoginForm } from '@/app/login/login-form';
+"use client";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
+import { LoginForm } from "app/login/login-form";
+import { RegisterForm } from "app/register/register";
+// import { RegisterForm } from "@/app/register/register";
+// import { LoginForm } from "@/app/login/login-form";
 
 const backdropVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1 }
+  visible: { opacity: 1 },
 };
 
 const modalVariants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: -20,
-    scale: 0.95
+    scale: 0.95,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      type: 'spring',
+      type: "spring", // Explicitly set to 'spring' (valid literal)
       damping: 25,
-      stiffness: 500
-    }
+      stiffness: 500,
+    },
   },
   exit: {
     opacity: 0,
     y: 20,
     scale: 0.95,
     transition: {
-      duration: 0.2
-    }
-  }
+      duration: 0.2,
+    },
+  },
 };
 
 export function AuthModal() {
@@ -85,19 +87,19 @@ export function AuthModal() {
               {/* Animated form switch */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={isLoginView ? 'login' : 'register'}
+                  key={isLoginView ? "login" : "register"}
                   initial={{ opacity: 0, x: isLoginView ? 20 : -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: isLoginView ? -20 : 20 }}
                   transition={{ duration: 0.2 }}
                 >
                   {isLoginView ? (
-                    <LoginForm 
-                      onSuccess={() => setIsOpen(false)} 
+                    <LoginForm
+                      onSuccess={() => setIsOpen(false)}
                       onSwitchToRegister={() => setIsLoginView(false)}
                     />
                   ) : (
-                    <RegisterForm 
+                    <RegisterForm
                       onSuccess={() => setIsOpen(false)}
                       onSwitchToLogin={() => setIsLoginView(true)}
                     />
