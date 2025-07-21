@@ -2,11 +2,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-// import { authService } from "@/lib/auth"; // Adjust path if necessary
-import { UserData } from "@/components/lib/type"; // Adjust path if necessary
+ 
+import { UserData } from "components/lib/type"; // Adjust path if necessary
 import { useRouter } from "next/navigation";
-import { authService } from "@/hook/useAuth";
-
+import { authService } from "hook/useAuth";
+// import { authService } from "../../components/lib/type";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState<UserData | null>(null);

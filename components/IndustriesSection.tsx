@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import { motion, Variants } from 'framer-motion'
-import { Button } from "@/components/ui/button"
+import { Button } from './ui/button'
 import Image from "next/image"
 
 interface Deal {

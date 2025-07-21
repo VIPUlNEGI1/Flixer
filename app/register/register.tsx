@@ -2,10 +2,12 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { authService } from '@/components/lib/auth';
+// import { Button } from '@/components/ui/button';
+// import { authService } from '@/components/lib/auth';
 // import { authService } from '@/lib/auth'; // Adjusted import path
-import { FormData } from '@/components/lib/type'; // Added import for FormData type
+import { FormData } from 'components/lib/type'; // Added import for FormData type
+import { Button } from 'components/ui/button';
+import { authService } from 'hook/useAuth';
 
 const inputVariants = {
   focus: {

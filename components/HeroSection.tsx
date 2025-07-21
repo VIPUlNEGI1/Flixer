@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { Button } from './ui/button'
 
 export default function AdvertisementOffer() {
   const [currentSlide, setCurrentSlide] = useState(0)

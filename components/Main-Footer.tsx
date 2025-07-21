@@ -21,7 +21,7 @@ import {
   FileText,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from './ui/button'
 
 export const Footer = () => {
   return (

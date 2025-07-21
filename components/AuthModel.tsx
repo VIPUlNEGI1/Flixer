@@ -71,7 +71,7 @@ export function AuthModal() {
             {/* Modal */}
             <motion.div
               className="relative bg-white rounded-2xl max-w-md w-full mx-4 p-6 shadow-2xl"
-              variants={modalVariants}
+            //   variants={modalVariants}
             >
               {/* Close button */}
               <motion.button

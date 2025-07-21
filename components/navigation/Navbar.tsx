@@ -2,11 +2,14 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Menu, Search, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { AnimatePresence, motion } from "framer-motion"
 import Logo from "../lib/Logo"
 import SearchBar from "./SearchBar"
-import { navigationConfig } from "@/config/navigation"
+// import { navigationConfig } from "@/config/navigation"
+import { Button } from "components/ui/button"
+import { navigationConfig } from "config/navigation"
+
 
 export default function Navbar() {
   const router = useRouter()
