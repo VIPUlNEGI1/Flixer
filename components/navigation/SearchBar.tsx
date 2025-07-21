@@ -58,7 +58,7 @@ export default function SearchBar({ className }: { className?: string }) {
     <div className={`relative ${className}`}>
       {/* Always visible search button on mobile */}
       <button
-        className="p-2 text-gray-600 hover:text-primary rounded-lg transition-all"
+        className="p-2 text-gray-600 bg-slate-50 hover:text-primary rounded-lg transition-all"
         onClick={() => {
           setIsOpen(!isOpen)
           if (!isOpen && inputRef.current) {

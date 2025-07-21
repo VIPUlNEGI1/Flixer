@@ -1,124 +1,175 @@
-'use client'
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X, Phone, Home, BookOpen, Mail, LogIn, UserPlus, Menu, LogOut, User } from "lucide-react";
+import Link from "next/link";
+import SearchBar from "./SearchBar"; // Relative to src/components/
+import Logo from "../lib/Logo"; // Relative to src/components/
+import { useRouter } from "next/navigation";
+import { authService } from "../lib/auth"; // Relative to src/components/
 
-import { useMemo } from 'react'
-import { motion, Variants, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
-
-interface SubMenuItem {
-  id: string
-  label: string
-  href: string
-  icon?: React.ComponentType<{ className?: string }>
-  description?: string
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+interface MenuItem {
+  id: string;
+  label: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
-interface SubMenuProps {
-  items: SubMenuItem[]
-  isMobile?: boolean
-  onItemClick?: () => void
-  isOpen?: boolean
-}
+export default function SidebarMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
-export default function SubMenu({ items, isMobile = false, onItemClick, isOpen = true }: SubMenuProps) {
-  const menuVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.2,
-        ease: 'easeOut',
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: 10,
-      transition: {
-        duration: 0.1,
-        ease: 'easeIn',
-      },
-    },
-  }
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const renderItem = (item: SubMenuItem) => {
-    const { id, label, href, icon: Icon, description, onClick } = item
-    const linkProps = {
-      href: href || '#', // Fallback to '#' if href is invalid
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
-        onClick?.(e)
-        onItemClick?.()
-      },
-      className: isMobile
-        ? 'flex items-center px-4 py-2.5 text-sm text-green-100 rounded-lg hover:bg-green-700/50 hover:text-white transition-all duration-200 group'
-        : 'flex items-start p-4 rounded-xl hover:bg-gradient-to-r hover:from-green-50 hover:to-green-100 transition-all duration-200 group border border-transparent hover:border-green-200/50',
-      role: 'menuitem' as const,
+  useEffect(() => {
+    setIsLoggedIn(authService.isAuthenticated());
+  }, []);
+
+  const menuItems: MenuItem[] = [
+    { id: "home", label: "Home", href: "/", icon: Home },
+    { id: "categories", label: "Categories", href: "/categories", icon: BookOpen },
+    { id: "contact", label: "Contact", href: "/contact", icon: Mail },
+  ];
+
+  const authItems: MenuItem[] = isLoggedIn
+    ? [
+        { id: "profile", label: "Profile", href: "/profile", icon: User },
+        { id: "logout", label: "Sign Out", href: "#", icon: LogOut },
+      ]
+    : [
+        { id: "login", label: "Sign In", href: "/login", icon: LogIn },
+        { id: "register", label: "Register", href: "/register", icon: UserPlus },
+      ];
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleAuthAction = (item: MenuItem) => {
+    if (item.id === "logout") {
+      authService.logout();
+      setIsLoggedIn(false);
+      router.push("/");
+    } else {
+      router.push(item.href);
     }
-
-    return (
-      <Link key={id} {...linkProps}>
-        <div className={isMobile ? 'flex flex-col' : 'flex items-start space-x-4 w-full'}>
-          {Icon && (
-            <div
-              className={
-                isMobile
-                  ? 'w-4 h-4 mr-3 text-green-300 group-hover:text-green-200'
-                  : 'flex-shrink-0 p-2.5 bg-gradient-to-br from-green-100 to-green-200 rounded-xl group-hover:from-green-200 group-hover:to-green-300 transition-all duration-200'
-              }
-            >
-              <Icon className={isMobile ? 'w-4 h-4' : 'w-5 h-5 text-green-600 group-hover:text-green-700'} />
-            </div>
-          )}
-          <div className={isMobile ? '' : 'flex flex-col flex-1'}>
-            <span
-              className={
-                isMobile
-                  ? 'font-medium'
-                  : 'text-sm font-semibold text-gray-800 group-hover:text-green-700 transition-colors'
-              }
-            >
-              {label}
-            </span>
-            {description && (
-              <span
-                className={
-                  isMobile
-                    ? 'text-xs text-green-300/70 group-hover:text-green-200/70'
-                    : 'mt-1 text-xs text-gray-500 group-hover:text-gray-600 transition-colors'
-                }
-              >
-                {description}
-              </span>
-            )}
-          </div>
-        </div>
-      </Link>
-    )
-  }
-
-  const renderedItems = useMemo(() => items.map(renderItem), [items, isMobile, onItemClick])
-
-  if (!isOpen) return null
+    toggleMenu();
+  };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={menuVariants}
-          className={
-            isMobile
-              ? 'pl-4 mt-2 ml-4 border-l border-green-600/30 space-y-1'
-              : 'absolute left-0 mt-3 w-80 max-w-full p-3 bg-white/95 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/50'
-          }
-          role="menu"
-          aria-orientation={isMobile ? 'vertical' : 'vertical'}
-        >
-          <div className={isMobile ? '' : 'grid gap-1'}>{renderedItems}</div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
+    <>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={toggleMenu}
+        className="lg:hidden p-2 rounded-lg bg-slate-50 text-gray-900 hover:bg-gray-100 transition-all"
+        aria-label="Open menu"
+      >
+        <Menu className="w-5 h-5" />
+      </motion.button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              onClick={toggleMenu}
+            />
+
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed left-0 top-0 bottom-0 w-[280px] max-w-[85vw] bg-white z-50 shadow-xl flex flex-col"
+            >
+              <div className={`p-3 border-b ${isScrolled ? "border-gray-200" : "border-transparent"}`}>
+                <div className="flex justify-between items-center">
+                  <Logo />
+                  <button
+                    onClick={toggleMenu}
+                    className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5 text-gray-900" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-3 border-b border-gray-200">
+                <SearchBar />
+              </div>
+
+              <nav className="flex-1 overflow-y-auto p-2 space-y-1">
+                {menuItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={toggleMenu}
+                      className="flex items-center p-3 rounded-lg hover:bg-gray-50 text-gray-900 transition-colors text-sm"
+                    >
+                      <item.icon className="w-5 h-5 mr-3 text-gray-700" />
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              <div className="p-3 border-t border-gray-200 space-y-2">
+                {authItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {item.id === "logout" ? (
+                      <button
+                        onClick={() => handleAuthAction(item)}
+                        className="w-full flex items-center justify-center p-2.5 rounded-lg font-medium transition-colors border border-gray-300 text-gray-900 hover:bg-gray-100 text-sm"
+                      >
+                        <item.icon className="w-5 h-5 mr-2" />
+                        {item.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        onClick={() => handleAuthAction(item)}
+                        className={`flex items-center justify-center p-2.5 rounded-lg font-medium transition-colors text-sm ${
+                          item.id === "register"
+                            ? "bg-black text-white hover:bg-gray-800"
+                            : "border border-gray-300 text-gray-900 hover:bg-gray-100"
+                        }`}
+                      >
+                        <item.icon className="w-5 h-5 mr-2" />
+                        {item.label}
+                      </Link>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="p-3 border-t border-gray-200 bg-gray-50">
+                <div className="flex items-center space-x-3 p-2 bg-white rounded-lg">
+                  <Phone className="w-5 h-5 text-gray-700" />
+                  <div>
+                    <p className="text-xs text-gray-600">Need help?</p>
+                    <p className="font-medium text-gray-900 text-sm">+1 (234) 567-890</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }

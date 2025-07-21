@@ -6,15 +6,15 @@ export const authService = {
   register: async (formData) => {
     if (isDevelopment) console.log('Registering with:', formData);
     try {
-      const response = await fetch(`${API_BASE_URL}/flexr/auth/register`, {
+      const response = await fetch(`${API_BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-        timeout: 30000, // 30-second timeout
+        timeout: 30000,
       });
       const data = await response.json();
       if (!response.ok) {
-        if (isDevelopment) console.error('Register error:', data.message);
+        if (isDevelopment) console.error('Register error:', data.message, 'Status:', response.status);
         return { error: data.message || 'Registration failed' };
       }
       if (isDevelopment) console.log('Register success:', data);
@@ -28,16 +28,19 @@ export const authService = {
   login: async ({ email, password }) => {
     if (isDevelopment) console.log('Logging in with email:', email);
     try {
-      const response = await fetch(`${API_BASE_URL}/flexr/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-        timeout: 30000, // 30-second timeout
+        timeout: 30000,
       });
       const data = await response.json();
       if (!response.ok) {
-        if (isDevelopment) console.error('Login error:', data.message);
+        if (isDevelopment) console.error('Login error:', data.message, 'Status:', response.status);
         return { error: data.message || 'Login failed' };
+      }
+      if (data.token) {
+        localStorage.setItem('authToken', data.token); // Store token on success
       }
       if (isDevelopment) console.log('Login success:', data);
       return data;
@@ -56,11 +59,11 @@ export const authService = {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        timeout: 30000, // 30-second timeout
+        timeout: 30000,
       });
       const data = await response.json();
       if (!response.ok) {
-        if (isDevelopment) console.error('Profile error:', data.message);
+        if (isDevelopment) console.error('Profile error:', data.message, 'Status:', response.status);
         return { error: data.message || 'Failed to fetch profile' };
       }
       if (isDevelopment) console.log('Profile success:', data);
@@ -69,5 +72,15 @@ export const authService = {
       if (isDevelopment) console.error('Network error:', error.message);
       return { error: 'Network error or server timeout' };
     }
+  },
+
+  isAuthenticated: () => {
+    // Check if a token exists in localStorage
+    return !!localStorage.getItem('authToken');
+  },
+
+  logout: () => {
+    // Remove token from localStorage
+    localStorage.removeItem('authToken');
   },
 };

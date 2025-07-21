@@ -1,11 +1,10 @@
-// travel/app/register/register.tsx
+// travel/app/login/login-form.tsx
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { authService } from '@/components/lib/auth';
-// import { authService } from '@/lib/auth'; // Adjusted import path
-import { FormData } from '@/components/lib/type'; // Added import for FormData type
+ 
 
 const inputVariants = {
   focus: {
@@ -14,26 +13,17 @@ const inputVariants = {
   },
 };
 
-export function RegisterForm({
+export function LoginForm({
   onSuccess,
-  onSwitchToLogin,
+  onSwitchToRegister,
 }: {
-  onSuccess: () => void;
-  onSwitchToLogin: () => void;
+  onSuccess: (token: string) => void;
+  onSwitchToRegister: () => void;
 }) {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-  });
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,11 +31,11 @@ export function RegisterForm({
     setError('');
 
     try {
-      const result = await authService.register(formData);
+      const result = await authService.login({ email, password });
       if (result.error) {
         setError(result.message);
       } else {
-        onSuccess();
+        onSuccess(result.token!); // Assert token exists
       }
     } catch (err) {
       setError('An unexpected error occurred');
@@ -61,7 +51,7 @@ export function RegisterForm({
         animate={{ opacity: 1, y: 0 }}
         className="text-2xl font-bold text-center text-gray-800"
       >
-        Create Account
+        Welcome Back
       </motion.h2>
 
       {error && (
@@ -75,49 +65,14 @@ export function RegisterForm({
       )}
 
       <div className="space-y-2">
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Full Name
-        </label>
-        <motion.input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-          required
-          whileFocus="focus"
-          variants={inputVariants}
-        />
-      </div>
-
-      <div className="space-y-2">
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
           Email
         </label>
         <motion.input
           id="email"
-          name="email"
           type="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-          required
-          whileFocus="focus"
-          variants={inputVariants}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-          Phone Number
-        </label>
-        <motion.input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           required
           whileFocus="focus"
@@ -131,10 +86,9 @@ export function RegisterForm({
         </label>
         <motion.input
           id="password"
-          name="password"
           type="password"
-          value={formData.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           required
           whileFocus="focus"
@@ -157,19 +111,19 @@ export function RegisterForm({
               🔄
             </motion.span>
           ) : (
-            'Create Account'
+            'Sign In'
           )}
         </Button>
       </motion.div>
 
       <div className="text-center text-sm text-gray-700">
-        Already have an account?{' '}
+        Don't have an account?{' '}
         <button
           type="button"
-          onClick={onSwitchToLogin}
+          onClick={onSwitchToRegister}
           className="font-medium text-blue-600 hover:underline"
         >
-          Sign in
+          Sign up
         </button>
       </div>
     </form>

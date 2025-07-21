@@ -26,56 +26,12 @@ const offers = [
     linkText: "See All Ultahost Offers",
     category: "Electronics",
   },
-  {
-    id: 2,
-    tag: "UP TO 85% OFF",
-    brand: "Bummer",
-    title: "Exclusive Offer: Get Up To 70% OFF + Extra 15% OFF On Your Orders",
-    logo: "/OIP (3).webp",
-    linkText: "See All Bummer Offers",
-    category: "Fashion",
-  },
-  {
-    id: 3,
-    tag: "GRABON EXCLUSIVE",
-    brand: "FlixBus",
-    title: "✨ Enjoy Bus Journey & Get Flat Rs 100 Discount On Bookings🚌",
-    logo: "/OIP (2).webp",
-    linkText: "See All FlixBus Offers",
-    category: "Travel",
-  },
-  {
-    id: 4,
-    tag: "Rs.400 CASHBACK",
-    brand: "Mamaearth",
-    title: "Mamaearth Special Offer - Flat Rs 400 Cashback | All Users",
-    logo: "/OIP (1).webp",
-    linkText: "See All Mamaearth Offers",
-    category: "Food",
-  },
-  {
-    id: 5,
-    tag: "🔥 Unmissable 80% Off!",
-    brand: "Healthkart",
-    title: "Healthkart 💪 Sitewide Products - Up To 70% OFF + Extra 10% OFF😍",
-    logo: "/voyager-blog-2.webp",
-    linkText: "See All Healthkart Offers",
-    category: "Food",
-  },
-  {
-    id: 6,
-    tag: "Make Memories In The U.S.",
-    brand: "Etihad Airways",
-    title:
-      "Etihad US Customs Clearance Sale: Fastest & Simplest Way to Travel To U.S. Immigration In Abudhabi",
-    logo: "/OIP (3).webp",
-    linkText: "See All Etihad Airways Offers",
-    category: "Travel",
-  },
+  // ... (keep your other offer objects the same)
 ];
 
 export default function OffersSection() {
   const [selectedCategory, setSelectedCategory] = useState("Most Used");
+  const [showMobileCategories, setShowMobileCategories] = useState(false);
 
   const filteredOffers =
     selectedCategory === "Most Used"
@@ -83,13 +39,54 @@ export default function OffersSection() {
       : offers.filter((offer) => offer.category === selectedCategory);
 
   return (
-    <div className="flex flex-col items-center py-10 bg-[#f3f7fa]">
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">
+    <div className="flex flex-col items-center py-6 md:py-10 bg-[#f3f7fa] px-4 sm:px-6">
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 text-center">
         Today's Top Coupons & Offers
       </h2>
-      <div className="w-full max-w-7xl flex gap-6 mt-6">
-        {/* Category Sidebar */}
-        <div className="w-1/5 bg-white rounded-lg shadow p-4">
+      
+      {/* Mobile Category Selector */}
+      <div className="w-full md:hidden mb-4">
+        <button
+          onClick={() => setShowMobileCategories(!showMobileCategories)}
+          className="w-full flex justify-between items-center px-4 py-3 bg-white rounded-lg shadow"
+        >
+          <span>{selectedCategory}</span>
+          <ChevronRight 
+            className={`transition-transform ${showMobileCategories ? 'rotate-90' : ''}`} 
+            size={18} 
+          />
+        </button>
+        
+        {showMobileCategories && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mt-2 bg-white rounded-lg shadow overflow-hidden"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`w-full text-left px-4 py-3 ${
+                  selectedCategory === cat
+                    ? "bg-green-100 text-green-700 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+                onClick={() => {
+                  setSelectedCategory(cat);
+                  setShowMobileCategories(false);
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </div>
+
+      <div className="w-full max-w-7xl flex flex-col md:flex-row gap-4 md:gap-6">
+        {/* Category Sidebar - Desktop */}
+        <div className="hidden md:block w-full md:w-1/5 bg-white rounded-lg shadow p-4">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -107,30 +104,31 @@ export default function OffersSection() {
         </div>
 
         {/* Offers Content */}
-        <div className="w-4/5">
+        <div className="w-full md:w-4/5">
           {/* Banner */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="rounded-lg overflow-hidden mb-6"
+            className="rounded-lg overflow-hidden mb-4 md:mb-6"
           >
             <Image
               src="/banner-1752733175901.jpg"
               alt="Uber Ad"
               width={1200}
               height={200}
-              className="rounded-lg object-cover w-full h-48"
+              className="rounded-lg object-cover w-full h-32 md:h-48"
+              priority
             />
           </motion.div>
 
           {/* Coupons Grid */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {filteredOffers.map((offer) => (
               <motion.div
                 key={offer.id}
                 whileHover={{ scale: 1.02 }}
-                className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
+                className="bg-white p-3 md:p-4 rounded-xl shadow hover:shadow-lg transition"
               >
                 <div className="text-xs font-bold text-gray-500 mb-1">{offer.tag}</div>
                 <div className="flex items-center gap-2 mb-2">
@@ -143,9 +141,11 @@ export default function OffersSection() {
                   />
                   <span className="text-sm font-semibold">{offer.brand}</span>
                 </div>
-                <p className="text-sm text-gray-700 mb-2">{offer.title}</p>
-                <button className="text-blue-600 text-sm flex items-center gap-1">
-                  {offer.linkText} <ChevronRight size={16} />
+                <p className="text-xs md:text-sm text-gray-700 mb-2 line-clamp-2">
+                  {offer.title}
+                </p>
+                <button className="text-blue-600 text-xs md:text-sm flex items-center gap-1">
+                  {offer.linkText} <ChevronRight size={14} />
                 </button>
               </motion.div>
             ))}
@@ -153,7 +153,7 @@ export default function OffersSection() {
 
           {/* Show More */}
           <div className="flex justify-center mt-6">
-            <button className="bg-white px-6 py-2 rounded-full border border-gray-300 hover:bg-gray-100">
+            <button className="bg-white px-4 md:px-6 py-2 rounded-full border border-gray-300 hover:bg-gray-100 text-sm md:text-base">
               Show More
             </button>
           </div>
