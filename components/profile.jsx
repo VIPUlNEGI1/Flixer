@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { authService } from '@/components/lib/auth';
+import { authService } from 'components/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
 export function ProfilePage() {

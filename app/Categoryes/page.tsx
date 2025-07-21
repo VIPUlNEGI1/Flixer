@@ -1,16 +1,14 @@
 
 
 
-
-
-
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { Button } from "@/components/ui/button"
+// import { Button } from "/components/ui/button"
 import { Star, MessageCircle, Users, MapPin, Briefcase, ChevronRight, ChevronLeft, Search, Heart, Share2, Bookmark, Plus } from "lucide-react"
 import Image from "next/image"
+import { Button } from 'components/ui/button'
 
 interface SocialPost {
   id: number
