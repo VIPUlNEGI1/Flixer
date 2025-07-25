@@ -1,13 +1,7 @@
-// travel/app/register/register.tsx
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-// import { Button } from '@/components/ui/button';
-// import { authService } from '@/components/lib/auth';
-// import { authService } from '@/lib/auth'; // Adjusted import path
-import { FormData } from 'components/lib/type'; // Added import for FormData type
 import { Button } from 'components/ui/button';
-import { authService } from 'hook/useAuth';
 
 const inputVariants = {
   focus: {
@@ -15,6 +9,13 @@ const inputVariants = {
     boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)',
   },
 };
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+}
 
 export function RegisterForm({
   onSuccess,
@@ -42,15 +43,50 @@ export function RegisterForm({
     setIsLoading(true);
     setError('');
 
+    // Basic frontend validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setError('Please enter a valid email address');
+      setIsLoading(false);
+      return;
+    }
+    if (!/^\+?\d{10,12}$/.test(formData.phone)) {
+      setError('Phone number must be 10-12 digits');
+      setIsLoading(false);
+      return;
+    }
+    if (formData.password.length < 8 || !/[A-Z]/.test(formData.password) || !/[!@#$%^&*]/.test(formData.password)) {
+      setError('Password must be at least 8 characters with an uppercase letter and a special character');
+      setIsLoading(false);
+      return;
+    }
+    if (formData.name.length < 2) {
+      setError('Name must be at least 2 characters');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const result = await authService.register(formData);
-      if (result.error) {
-        setError(result.message);
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://flxergithub.onrender.com/flexr/auth';
+      const response = await fetch(`${API_BASE_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      console.log('Response data:', data); // Log response for debugging
+      if (!response.ok) {
+        const errorMap: { [key: string]: string } = {
+          'Email already exists': 'This email is already registered. Try another.',
+          'Invalid phone format': 'Please enter a valid phone number (e.g., +1234567890).',
+          'Password too weak': 'Password must be at least 8 characters with an uppercase letter and a special character.',
+        };
+        setError(errorMap[data.message] || data.message || 'Registration failed');
       } else {
         onSuccess();
       }
     } catch (err) {
-      setError('An unexpected error occurred');
+      console.error('Network error:', err);
+      setError('Network error or server timeout');
     } finally {
       setIsLoading(false);
     }
@@ -112,7 +148,7 @@ export function RegisterForm({
 
       <div className="space-y-2">
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-          Phone Number
+          Phone Number (e.g., +1234567890)
         </label>
         <motion.input
           id="phone"

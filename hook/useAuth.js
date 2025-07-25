@@ -1,6 +1,6 @@
 // src/lib/auth.js
 const isDevelopment = process.env.NODE_ENV === 'development';
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://flxergithub.onrender.com';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://flxergithub.onrender.com/flexr/auth';
 
 export const authService = {
   register: async (formData) => {
@@ -12,6 +12,7 @@ export const authService = {
         body: JSON.stringify(formData),
         timeout: 30000,
       });
+      console.log('fdjkf', response);
       const data = await response.json();
       if (!response.ok) {
         if (isDevelopment) console.error('Register error:', data.message, 'Status:', response.status);
@@ -24,7 +25,7 @@ export const authService = {
       return { error: 'Network error or server timeout' };
     }
   },
-
+ 
   login: async ({ email, password }) => {
     if (isDevelopment) console.log('Logging in with email:', email);
     try {
